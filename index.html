@@ -484,10 +484,15 @@ function renderForm() {
         });
     }
   function listPathsInRepository(repoName) {
-    const githubToken = localStorage.getItem('githubToken');
 
     if (githubToken) {
-        fetch(`https://api.github.com/repos/${repoName}/contents`)
+        fetch(`https://api.github.com/repos/${githubOwner}/${githubRepo}/contents`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `token ${githubToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    })
         .then(response => response.json())
         .then(data => {
             if (Array.isArray(data)) {
@@ -521,11 +526,14 @@ function displayPathList(paths) {
     document.body.appendChild(pathList);
 }
 function listFilesAtPath(path) {
-    const githubToken = localStorage.getItem('githubToken');
-    const repoName = 'Rowat_El_Hadith'; // Replace with the repository name
-
     if (githubToken) {
-        fetch(`https://api.github.com/repos/${repoName}/contents/${path}`)
+           fetch(`https://api.github.com/repos/${githubOwner}/${githubRepo}/contents/${path}`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `token ${githubToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    })
         .then(response => response.json())
         .then(data => {
             if (Array.isArray(data)) {
