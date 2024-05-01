@@ -278,7 +278,7 @@
     if (githubOwner && githubRepo && githubPath && githubFileName) {
         // Proceed with modification logic
             const commitMessage = prompt("Enter a commit message for the modification:");
-
+            const fileContent = JSON.stringify(jsonObject, null, 2);
             // Make API request to update the JSON file in the GitHub repository
             fetch(`https://api.github.com/repos/${githubOwner}/${githubRepo}/contents/${githubPath}/${githubFileName}`, {
                 method: 'PUT',
@@ -288,7 +288,7 @@
                 },
                 body: JSON.stringify({
                     message: commitMessage,
-                    content: btoa(newContent) // encode content as base64
+                    content: btoa(fileContent) // encode content as base64
                 })
             })
             .then(response => {
