@@ -483,6 +483,67 @@ function renderForm() {
             selectElement.appendChild(optionElement);
         });
     }
+  function listPathsInRepository(repoName) {
+    const githubToken = localStorage.getItem('githubToken');
+
+    if (githubToken) {
+        fetch(`https://api.github.com/repos/${repoName}/contents`)
+        .then(response => response.json())
+        .then(data => {
+            if (Array.isArray(data)) {
+                const paths = data.filter(item => item.type === 'dir').map(item => item.path);
+                displayPathList(paths);
+            } else {
+                throw new Error('Failed to fetch paths');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            alert("Failed to fetch paths. Please try again.");
+        });
+    } else {
+        alert("GitHub token is missing. Please log in and authorize access.");
+    }
+}
+function displayPathList(paths) {
+    const pathList = document.createElement('div');
+    pathList.classList.add('floating-list');
+
+    paths.forEach(path => {
+        const button = document.createElement('button');
+        button.textContent = path;
+        button.addEventListener('click', () => {
+            listFilesAtPath(path);
+        });
+        pathList.appendChild(button);
+    });
+
+    document.body.appendChild(pathList);
+}
+function listFilesAtPath(path) {
+    const githubToken = localStorage.getItem('githubToken');
+    const repoName = 'Rowat_El_Hadith'; // Replace with the repository name
+
+    if (githubToken) {
+        fetch(`https://api.github.com/repos/${repoName}/contents/${path}`)
+        .then(response => response.json())
+        .then(data => {
+            if (Array.isArray(data)) {
+                const fileNames = data.filter(item => item.type === 'file').map(item => item.name);
+                displayFileList(fileNames);
+            } else {
+                throw new Error('Failed to fetch files');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            alert("Failed to fetch files. Please try again.");
+        });
+    } else {
+        alert("GitHub token is missing. Please log in and authorize access.");
+    }
+}
+
 </script>
 
 </body>
