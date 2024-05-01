@@ -277,9 +277,6 @@
     
     if (githubOwner && githubRepo && githubPath && githubFileName) {
         // Proceed with modification logic
-        const newContent = prompt("Enter the new content for the file:");
-        if (newContent !== null) {
-             githubToken = localStorage.getItem('githubToken');
             const commitMessage = prompt("Enter a commit message for the modification:");
 
             // Make API request to update the JSON file in the GitHub repository
@@ -305,7 +302,7 @@
                 console.error(error);
                 alert("Failed to modify JSON file. Please try again.");
             });
-        }
+        
     } else {
         alert("GitHub configuration is missing. Please configure GitHub first.");
     }
@@ -314,7 +311,6 @@
 function removeJSONFile() {
 
     if (githubOwner && githubRepo && githubPath && githubFileName) {
-         githubToken = localStorage.getItem('githubToken');
         const commitMessage = prompt("Enter a commit message for the removal:");
 
         // Make API request to delete the JSON file from the GitHub repository
