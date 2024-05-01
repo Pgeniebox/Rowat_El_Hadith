@@ -138,7 +138,11 @@
 
 <script>
     let jsonObject = {};
-
+    let githubOwner=null;
+    let githubRepo=null;
+    let githubPath=null;
+    let githubFileName=null;
+    let githubToken=null;
     const languageTexts = {
         'en': {
             'pageTitle': 'Create JSON Form',
@@ -195,9 +199,9 @@
     }
 
     function loadConfigFromLocalStorage() {
-        const githubOwner = localStorage.getItem('githubOwner');
-        const githubRepo = localStorage.getItem('githubRepo');
-        const githubToken = localStorage.getItem('githubToken');
+         githubOwner = localStorage.getItem('githubOwner');
+         githubRepo = localStorage.getItem('githubRepo');
+         githubToken = localStorage.getItem('githubToken');
 
         // Check if configuration exists in localStorage
         if (githubOwner && githubRepo && githubToken) {
@@ -214,9 +218,9 @@
     };
 
     function configureGitHub() {
-        const githubOwner = prompt("Enter your GitHub repository owner:");
-        const githubRepo = prompt("Enter your GitHub repository name:");
-        const githubToken = prompt("Please enter your GitHub access token:");
+         githubOwner = prompt("Enter your GitHub repository owner:");
+         githubRepo = prompt("Enter your GitHub repository name:");
+         githubToken = prompt("Please enter your GitHub access token:");
         if (githubOwner && githubRepo && githubToken) {
             localStorage.setItem('githubOwner', githubOwner);
             localStorage.setItem('githubRepo', githubRepo);
@@ -230,13 +234,13 @@
     }
 
     function updateJSONFile() {
-        const githubOwner = localStorage.getItem('githubOwner');
-        const githubRepo = localStorage.getItem('githubRepo');
-        const githubPath = prompt("Enter the path to the file in your GitHub repository:");
-        const githubFileName = prompt("Enter the name of the file to update:");
+         githubOwner = localStorage.getItem('githubOwner');
+         githubRepo = localStorage.getItem('githubRepo');
+         githubPath = prompt("Enter the path to the file in your GitHub repository:");
+         githubFileName = prompt("Enter the name of the file to update:");
 
         if (githubOwner && githubRepo && githubPath && githubFileName) {
-            const githubToken = localStorage.getItem('githubToken');
+             githubToken = localStorage.getItem('githubToken');
             const fileContent = JSON.stringify(jsonObject, null, 2);
             const commitMessage = prompt("Enter a commit message:");
 
@@ -270,16 +274,16 @@
     }
 
  function modifyJSONFile() {
-    const githubOwner = localStorage.getItem('githubOwner');
-    const githubRepo = localStorage.getItem('githubRepo');
-    const githubPath = localStorage.getItem('githubPath');
+     githubOwner = localStorage.getItem('githubOwner');
+     githubRepo = localStorage.getItem('githubRepo');
+     githubPath = localStorage.getItem('githubPath');
     const githubFileName = localStorage.getItem('githubFileName');
 
     if (githubOwner && githubRepo && githubPath && githubFileName) {
         // Proceed with modification logic
         const newContent = prompt("Enter the new content for the file:");
         if (newContent !== null) {
-            const githubToken = localStorage.getItem('githubToken');
+             githubToken = localStorage.getItem('githubToken');
             const commitMessage = prompt("Enter a commit message for the modification:");
 
             // Make API request to update the JSON file in the GitHub repository
@@ -312,13 +316,13 @@
 }
 
 function removeJSONFile() {
-    const githubOwner = localStorage.getItem('githubOwner');
-    const githubRepo = localStorage.getItem('githubRepo');
-    const githubPath = localStorage.getItem('githubPath');
-    const githubFileName = localStorage.getItem('githubFileName');
+     githubOwner = localStorage.getItem('githubOwner');
+     githubRepo = localStorage.getItem('githubRepo');
+     githubPath = localStorage.getItem('githubPath');
+     githubFileName = localStorage.getItem('githubFileName');
 
     if (githubOwner && githubRepo && githubPath && githubFileName) {
-        const githubToken = localStorage.getItem('githubToken');
+         githubToken = localStorage.getItem('githubToken');
         const commitMessage = prompt("Enter a commit message for the removal:");
 
         // Make API request to delete the JSON file from the GitHub repository
