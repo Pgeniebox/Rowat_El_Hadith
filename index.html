@@ -273,40 +273,55 @@
         }
     }
 
- function modifyJSONFile() {
-    
+function modifyJSONFile() {
+ 
+
     if (githubOwner && githubRepo && githubPath && githubFileName) {
-        // Proceed with modification logic
-            const commitMessage = prompt("Enter a commit message for the modification:");
-            const fileContent = JSON.stringify(jsonObject, null, 2);
-            // Make API request to update the JSON file in the GitHub repository
-            fetch(`https://api.github.com/repos/${githubOwner}/${githubRepo}/contents/${githubPath}/${githubFileName}`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `token ${githubToken}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: commitMessage,
-                    content: btoa(fileContent) // encode content as base64
-                })
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert("JSON file modified successfully!");
+        // Retrieve the current commit SHA of the file
+        fetch(`https://api.github.com/repos/${githubOwner}/${githubRepo}/contents/${githubPath}/${githubFileName}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.sha) {
+                        const commitMessage = prompt("Enter a commit message for the modification:");
+                       const fileContent = JSON.stringify(jsonObject, null, 2);
+                        // Make API request to update the JSON file in the GitHub repository
+                        fetch(`https://api.github.com/repos/${githubOwner}/${githubRepo}/contents/${githubPath}/${githubFileName}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Authorization': `token ${githubToken}`,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                message: commitMessage,
+                                content: btoa(fileContent), // encode content as base64
+                                sha: data.sha // include the current commit SHA
+                            })
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                alert("JSON file modified successfully!");
+                            } else {
+                                throw new Error('Failed to modify JSON file');
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            alert("Failed to modify JSON file. Please try again.");
+                        });
+                    
                 } else {
-                    throw new Error('Failed to modify JSON file');
+                    throw new Error('Failed to retrieve file information');
                 }
             })
             .catch(error => {
                 console.error(error);
-                alert("Failed to modify JSON file. Please try again.");
+                alert("Failed to retrieve file information. Please try again.");
             });
-        
     } else {
         alert("GitHub configuration is missing. Please configure GitHub first.");
     }
 }
+
 
 function removeJSONFile() {
 
