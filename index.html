@@ -274,11 +274,7 @@
     }
 
  function modifyJSONFile() {
-     githubOwner = localStorage.getItem('githubOwner');
-     githubRepo = localStorage.getItem('githubRepo');
-     githubPath = localStorage.getItem('githubPath');
-    const githubFileName = localStorage.getItem('githubFileName');
-
+    
     if (githubOwner && githubRepo && githubPath && githubFileName) {
         // Proceed with modification logic
         const newContent = prompt("Enter the new content for the file:");
@@ -316,10 +312,6 @@
 }
 
 function removeJSONFile() {
-     githubOwner = localStorage.getItem('githubOwner');
-     githubRepo = localStorage.getItem('githubRepo');
-     githubPath = localStorage.getItem('githubPath');
-     githubFileName = localStorage.getItem('githubFileName');
 
     if (githubOwner && githubRepo && githubPath && githubFileName) {
          githubToken = localStorage.getItem('githubToken');
