@@ -403,7 +403,60 @@ function removeJSONFile() {
     renderForm();
     displayJSON();
 }
+function renderForm() {
+        const formFields = document.getElementById("formFields");
+        formFields.innerHTML = "";
 
+        Object.keys(jsonObject).forEach(key => {
+            const fieldDiv = document.createElement("div");
+            fieldDiv.textContent = `${key}:`;
+
+            if (typeof jsonObject[key] === 'object') {
+                const nestedFieldsDiv = document.createElement("div");
+                nestedFieldsDiv.className = "nestedFields";
+
+                Object.keys(jsonObject[key]).forEach(nestedKey => {
+                    const nestedFieldDiv = document.createElement("div");
+                    nestedFieldDiv.textContent = `${nestedKey}: ${jsonObject[key][nestedKey]}`;
+                    nestedFieldsDiv.appendChild(nestedFieldDiv);
+                });
+
+                fieldDiv.appendChild(nestedFieldsDiv);
+            } else {
+                fieldDiv.textContent += ` ${JSON.stringify(jsonObject[key])}`;
+            }
+
+            formFields.appendChild(fieldDiv);
+        });
+    }
+
+    function displayJSON() {
+        document.getElementById("jsonDisplay").textContent = JSON.stringify(jsonObject, null, 2);
+    }
+
+    function changeLanguage(lang) {
+        const htmlElement = document.documentElement;
+        htmlElement.lang = lang;
+
+        const texts = languageTexts[lang];
+        Object.keys(texts).forEach(key => {
+            const element = document.getElementById(key);
+            if (element) {
+                element.textContent = texts[key];
+            }
+        });
+
+        // Update select options
+        const selectElement = document.getElementById("inputType");
+        selectElement.innerHTML = '';
+        const options = ['string', 'number', 'boolean', 'array', 'object'];
+        options.forEach(option => {
+            const optionElement = document.createElement("option");
+            optionElement.value = option;
+            optionElement.textContent = texts[option + 'Option'];
+            selectElement.appendChild(optionElement);
+        });
+    }
 </script>
 
 </body>
