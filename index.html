@@ -79,6 +79,8 @@
     <label id="fileNameLabel" for="fileName">Nom du fichier :</label>
     <input type="text" id="fileName">
     <button onclick="downloadJSON()" id="downloadBtn" disabled="" style="opacity: 0.5;">Télécharger le fichier</button>
+    <button onclick="modifyJSONFile()" id="modifyBtn" disabled="" style="opacity: 0.5;">Modifier le fichier JSON</button>
+    <button onclick="removeJSONFile()" id="removeBtn" disabled="" style="opacity: 0.5;">Supprimer le fichier JSON</button>
 </div>
 <div style="
     height: 1px;
@@ -142,6 +144,8 @@
             'pageTitle': 'Create JSON Form',
             'addFieldBtn': 'Add Field',
             'downloadBtn': 'Download File',
+            'modifyBtn': 'Modify JSON File',
+            'removeBtn': 'Remove JSON File',
             'updateBtn': 'Update JSON File',
             'keyLabel': 'Key:',
             'valueLabel': 'Value:',
@@ -156,6 +160,8 @@
             'pageTitle': 'إنشاء نموذج JSON',
             'addFieldBtn': 'إضافة حقل',
             'downloadBtn': 'تحميل الملف',
+            'modifyBtn': 'تعديل ملف JSON',
+            'removeBtn': 'إزالة ملف JSON',
             'updateBtn': 'تحديث ملف JSON',
             'keyLabel': 'المفتاح:',
             'valueLabel': 'القيمة:',
@@ -170,6 +176,8 @@
             'pageTitle': 'Créer un formulaire JSON',
             'addFieldBtn': 'Ajouter un champ',
             'downloadBtn': 'Télécharger le fichier',
+            'modifyBtn': 'Modifier le fichier JSON',
+            'removeBtn': 'Supprimer le fichier JSON',
             'updateBtn': 'Mettre à jour le fichier JSON',
             'keyLabel': 'Clé :',
             'valueLabel': 'Valeur :',
@@ -186,95 +194,24 @@
         return text.normalize('NFD').replace(/[\u064B-\u0652]/g, '');
     }
 
-    function addField() {
-        const key = removeDiacritics(document.getElementById("inputKey").value);
-        const value = removeDiacritics(document.getElementById("inputValue").value);
-        const type = document.getElementById("inputType").value;
+    function loadConfigFromLocalStorage() {
+        const githubOwner = localStorage.getItem('githubOwner');
+        const githubRepo = localStorage.getItem('githubRepo');
+        const githubToken = localStorage.getItem('githubToken');
 
-        let fieldValue;
-        switch (type) {
-            case "number":
-                fieldValue = parseFloat(value);
-                break;
-            case "boolean":
-                fieldValue = value === "true";
-                break;
-            case "array":
-                fieldValue = JSON.parse(value);
-                break;
-            case "object":
-                fieldValue = {};
-                break;
-            default:
-                fieldValue = value;
+        // Check if configuration exists in localStorage
+        if (githubOwner && githubRepo && githubToken) {
+            // Enable the update button
+            const updateBtn = document.getElementById('updateBtn');
+            updateBtn.disabled = false;
+            updateBtn.style.opacity = '1';
         }
-
-        if (jsonObject[key] && typeof jsonObject[key] === 'object') {
-            const nestedKey = removeDiacritics(prompt('Enter nested key:', ''));
-            const nestedValue = removeDiacritics(prompt('Enter nested value:', ''));
-            fieldValue[nestedKey] = nestedValue;
-        }
-
-        jsonObject[key] = fieldValue;
-
-        renderForm();
-        displayJSON();
     }
 
-    function renderForm() {
-        const formFields = document.getElementById("formFields");
-        formFields.innerHTML = "";
-
-        Object.keys(jsonObject).forEach(key => {
-            const fieldDiv = document.createElement("div");
-            fieldDiv.textContent = `${key}:`;
-
-            if (typeof jsonObject[key] === 'object') {
-                const nestedFieldsDiv = document.createElement("div");
-                nestedFieldsDiv.className = "nestedFields";
-
-                Object.keys(jsonObject[key]).forEach(nestedKey => {
-                    const nestedFieldDiv = document.createElement("div");
-                    nestedFieldDiv.textContent = `${nestedKey}: ${jsonObject[key][nestedKey]}`;
-                    nestedFieldsDiv.appendChild(nestedFieldDiv);
-                });
-
-                fieldDiv.appendChild(nestedFieldsDiv);
-            } else {
-                fieldDiv.textContent += ` ${JSON.stringify(jsonObject[key])}`;
-            }
-
-            formFields.appendChild(fieldDiv);
-        });
-    }
-
-    function displayJSON() {
-        document.getElementById("jsonDisplay").textContent = JSON.stringify(jsonObject, null, 2);
-    }
-
-    function changeLanguage(lang) {
-        const htmlElement = document.documentElement;
-        htmlElement.lang = lang;
-
-        const texts = languageTexts[lang];
-        Object.keys(texts).forEach(key => {
-            const element = document.getElementById(key);
-            if (element) {
-                element.textContent = texts[key];
-            }
-        });
-
-        // Update select options
-        const selectElement = document.getElementById("inputType");
-        selectElement.innerHTML = '';
-        const options = ['string', 'number', 'boolean', 'array', 'object'];
-        options.forEach(option => {
-            const optionElement = document.createElement("option");
-            optionElement.value = option;
-            optionElement.textContent = texts[option + 'Option'];
-            selectElement.appendChild(optionElement);
-        });
-    }
+    // Load configuration from localStorage when the page loads
+    window.onload = function() {
+        loadConfigFromLocalStorage();
+    };
 
     function configureGitHub() {
         const githubOwner = prompt("Enter your GitHub repository owner:");
@@ -292,55 +229,68 @@
         }
     }
 
-   function updateJSONFile() {
-    const githubOwner = localStorage.getItem('githubOwner');
-    const githubRepo = localStorage.getItem('githubRepo');
-    const githubPath = prompt("Enter the path to the file in your GitHub repository:");
-    const githubFileName = prompt("Enter the name of the file to update:");
+    function updateJSONFile() {
+        const githubOwner = localStorage.getItem('githubOwner');
+        const githubRepo = localStorage.getItem('githubRepo');
+        const githubPath = prompt("Enter the path to the file in your GitHub repository:");
+        const githubFileName = prompt("Enter the name of the file to update:");
 
-    if (githubOwner && githubRepo && githubPath && githubFileName) {
-        const githubToken = localStorage.getItem('githubToken');
-        const fileContent = JSON.stringify(jsonObject, null, 2);
-        const commitMessage = prompt("Enter a commit message:");
+        if (githubOwner && githubRepo && githubPath && githubFileName) {
+            const githubToken = localStorage.getItem('githubToken');
+            const fileContent = JSON.stringify(jsonObject, null, 2);
+            const commitMessage = prompt("Enter a commit message:");
 
-        // Make API request to update the JSON file in the GitHub repository
-        fetch(`https://api.github.com/repos/${githubOwner}/${githubRepo}/contents/${githubPath}/${githubFileName}`, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `token ${githubToken}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                message: commitMessage,
-                content: btoa(fileContent) // encode content as base64
+            // Make API request to update the JSON file in the GitHub repository
+            fetch(`https://api.github.com/repos/${githubOwner}/${githubRepo}/contents/${githubPath}/${githubFileName}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${githubToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: commitMessage,
+                    content: btoa(fileContent) // encode content as base64
+                })
             })
-        })
-        .then(response => {
-            if (response.ok) {
-                alert("JSON file updated successfully!");
-            } else {
-                throw new Error('Failed to update JSON file');
-            }
-        })
-        .catch(error => {
-            console.error(error);
-            alert("Failed to update JSON file. Please try again.");
-        });
+            .then(response => {
+                if (response.ok) {
+                    alert("JSON file updated successfully!");
+                    // Enable modify and remove buttons after the first upload
+                    document.getElementById('modifyBtn').disabled = false;
+                    document.getElementById('removeBtn').disabled = false;
+                } else {
+                    throw new Error('Failed to update JSON file');
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                alert("Failed to update JSON file. Please try again.");
+            });
+        }
     }
-}
 
+    function modifyJSONFile() {
+        const githubOwner = localStorage.getItem('githubOwner');
+        const githubRepo = localStorage.getItem('githubRepo');
+        const githubPath = prompt("Enter the path to the file in your GitHub repository:");
+        const githubFileName = prompt("Enter the name of the file to modify:");
 
-    function downloadJSON() {
-        const fileName = document.getElementById("fileName").value || "data";
-        const jsonContent = JSON.stringify(jsonObject, null, 2);
-        const blob = new Blob([jsonContent], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `${fileName}.json`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        if (githubOwner && githubRepo && githubPath && githubFileName) {
+            // Proceed with modification logic
+            alert("Modify JSON file logic goes here.");
+        }
+    }
+
+    function removeJSONFile() {
+        const githubOwner = localStorage.getItem('githubOwner');
+        const githubRepo = localStorage.getItem('githubRepo');
+        const githubPath = prompt("Enter the path to the file in your GitHub repository:");
+        const githubFileName = prompt("Enter the name of the file to remove:");
+
+        if (githubOwner && githubRepo && githubPath && githubFileName) {
+            // Proceed with removal logic
+            alert("Remove JSON file logic goes here.");
+        }
     }
 
     var contentElement = document.getElementById('jsonDisplay');
@@ -368,24 +318,6 @@
 
     // Start observing the contentElement
     observer.observe(contentElement, config);
-function loadConfigFromLocalStorage() {
-    const githubOwner = localStorage.getItem('githubOwner');
-    const githubRepo = localStorage.getItem('githubRepo');
-    const githubToken = localStorage.getItem('githubToken');
-
-    // Check if configuration exists in localStorage
-    if (githubOwner && githubRepo && githubToken) {
-        // Enable the update button
-        const updateBtn = document.getElementById('updateBtn');
-        updateBtn.disabled = false;
-        updateBtn.style.opacity = '1';
-    }
-}
-
-// Load configuration from localStorage when the page loads
-window.onload = function() {
-    loadConfigFromLocalStorage();
-};
 </script>
 
 </body>
