@@ -1,140 +1,199 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="ar">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create JSON Form</title>
-<style>
-  body {
-    background-color: #222;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 40px;
-  }
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create JSON Form</title>
+    <style>
+        
+        body {position: relative;
+            background-color: #26282b;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flow-root;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+           width: 100%;
+           left: 0;
+           top: 0;
+      text-align: -webkit-center;
+      direction: rtl;
+        }
 
-  h2 {
-    color: #fff;
-  }
+        #container {direction: rtl;
+            margin-top: 5%;
+            width: 80%;
+            max-width: 600px;
+            padding: 40px;
+            background-color: #313335;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+       align-self: center;
+       justify-self: center;
+       left: 0%;
+        }
 
-  input[type="text"],
-  select {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #444;
-    padding: 8px;
-    margin-right: 10px;
-  }
+        h2 {direction: rtl;
+            color: #fff;
+            margin-bottom: 20px;
+        }
 
-  input[type="text"]:focus,
-  select:focus {
-    outline: none;
-    border-color: #555;
-  }
+        label {direction: rtl;
+            color: #fff;
+            display: block;
+            margin-bottom: 10px;
+        }
 
-  button {
-    background-color: #163d81;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 3px;
-  }
+        input[type="text"],
+        select {direction: rtl;
+            background-color: #444;
+            color: #fff;
+            border: 1px solid #666;
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
 
-  button:hover {
-    background-color: #2e4f89;
-  }
+        button {direction: rtl;
+            background-color: #163d81;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 3px;
+            margin-top: 10px;
+        }
 
-  .nestedFields {
-    margin-left: 20px;
-  }
+        button:hover {direction: rtl;
+            background-color: #2e4f89;
+        }
 
-  .nestedFields div {
-    margin-bottom: 5px;
-  }
+        pre {direction: rtl;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            white-space: pre-wrap;
+            margin-top: 20px;
+            font-size: 14px;
+            overflow-x: auto;
+        }
 
-  #formFields {
-    margin-top: 20px;
-  }
+        #jsonDisplay {direction: rtl;
+            text-align: left;
+            padding: 2%;
+            background-color: #1d1d1d;
+            color: #fff;
+            max-height: 250px;
+            scrollbar-width:none;
+        }
 
-  #formFields div {
-    margin-bottom: 10px;
-  }
+        #window {direction: rtl;
+            background-color: #435266;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            height: 70%;
+            width: 70%;
+        }
 
-  pre {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    white-space: pre-wrap;
-    margin-top: 20px;
-    font-size: 14px;
-  }
-</style>
+        .title {direction: rtl;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        ul {direction: rtl;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+            max-height: -webkit-fill-available;
+            scrollbar-width: none;
+            overflow: scroll;
+        }
+
+        li {direction: rtl;
+            background-color: #444444;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #credit {direction:ltr;
+            color: #aaa;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-  <h2 id="pageTitle">Créer un formulaire JSON</h2>
-<div style="
-    margin-bottom: 40px;
-">
-    <label id="fileNameLabel" for="fileName">Nom du fichier :</label>
-    <input type="text" id="fileName">
-    <button onclick="downloadJSON()" id="downloadBtn" disabled="" style="opacity: 0.5;">Télécharger le fichier</button>
-    <button onclick="modifyJSONFile()" id="modifyBtn" disabled="" style="opacity: 0.5;">Modifier le fichier JSON</button>
-    <button onclick="removeJSONFile()" id="removeBtn" disabled="" style="opacity: 0.5;">Supprimer le fichier JSON</button>
+    <div id="container">
+        <h2 id="pageTitle">صفحة تكوين بيانات الراوي</h2>
+
+        <div>
+            <label for="fileName">إسم الراوي:</label>
+            <input type="text" id="fileName">
+            <button onclick="downloadJSON()" id="downloadBtn" disabled>تحميل الملف</button>
+            <button onclick="modifyJSONFile()" id="modifyBtn" disabled>تعديل الملف (Base)</button>
+            <button onclick="removeJSONFile()" id="removeBtn" disabled style="background-color: brown;">حذف الملف (Base)</button>
+            <button onclick="updateJSONFile()" id="updateBtn" disabled="" style="opacity: 0.5;background-color: green;">إنشاء الملف (Base)</button>
+        </div>
+
+        <hr>
+
+        <div>
+            <label for="inputKey">المفتاح:</label>
+            <input type="text" id="inputKey" dir="rtl">
+            <label for="inputValue">القيمة:</label>
+            <input type="text" id="inputValue" dir="rtl">
+            <select id="inputType" dir="rtl">
+                <option value="string">Texte</option>
+                <option value="number">Nombre</option>
+                <option value="boolean">Booléen</option>
+                <option value="array">Tableau</option>
+                <option value="object">Objet</option>
+            </select>
+            <button onclick="addField()" id="addFieldBtn">إضافة حقل</button>
+        </div>
+
+        <pre id="jsonDisplay"></pre>
+
+       
+
+      </div>
+     
+<div id="container" style="min-height: 100%;display: flow;background-color: transparent;box-shadow: none;margin: 0;">  
+    
+
+<div style="margin-top: 0;">
+    <button onclick="changeLanguage('en')" style="display: none;">English</button>
+    <button onclick="changeLanguage('ar')"style="display: none;">العربية</button>
+    <button onclick="changeLanguage('fr')" style="display: none;">Français</button>
+    <button onclick="configureGitHub()">Setting New Base</button>
 </div>
-<div style="
-    height: 1px;
-    margin: 20px;
-    width: auto;
-    background-color: grey;
-    opacity: 0.2;
-"></div>
-<div>
-    <label id="keyLabel" for="inputKey">Clé :</label>
-    <input type="text" id="inputKey" dir="rtl">
-    <label id="valueLabel" for="inputValue">Valeur :</label>
-    <input type="text" id="inputValue" dir="rtl">
-    <select id="inputType" dir="rtl">
-        <option value="string">Texte</option>
-        <option value="number">Nombre</option>
-        <option value="boolean">Booléen</option>
-        <option value="array">Tableau</option>
-        <option value="object">Objet</option>
-    </select>
-    <button onclick="addField()" id="addFieldBtn">Ajouter un champ</button>
+
+<div id="credit">Created by Lagab Adel.</div>   </div>
+<div id="window" class="path" style="overflow: hidden;display:none ; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <div class="title">أسماء الرواة</div>
+    <ul id="alph">
+    </ul>
+    <button id="back" style="position: fixed;bottom:0;right:0;margin: 4%;">العودة إلى الخلف</button>
 </div>
-<div style="
-    height: 1px;
-    margin: 20px;
-    width: auto;
-    background-color: grey;
-    opacity: 0.2;
-"></div>
-<div id="formFields"></div>
-<div style="
-    height: 1px;
-    margin: 20px;
-    width: auto;
-    background-color: grey;
-    opacity: 0.2;
-"></div>
-<pre id="jsonDisplay"></pre>
-<div style="
-    height: 1px;
-    margin: 20px;
-    width: auto;
-    background-color: grey;
-    opacity: 0.2;
-"></div>
-<button onclick="changeLanguage('en')">English</button>
-<button onclick="changeLanguage('ar')">العربية</button>
-<button onclick="changeLanguage('fr')">Français</button>
-<button onclick="configureGitHub()">Configurer GitHub</button>
-<button onclick="updateJSONFile()" id="updateBtn" disabled="" style="opacity: 0.5;">Mettre à jour le fichier JSON</button>
-<div style="
-    position: absolute;
-    bottom: 0;
-">Created by Lagab Adel.</div>
+<div id="window" class="rawi" style="overflow: hidden;display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <div class="title">أسماء الرواة</div>
+    <ul id="alph2">
+    </ul>
+    <button id="back2"style="position: fixed;bottom:0;right:0;margin: 4%;">العودة إلى الخلف</button>
+</div>
+</body>
 
 <script>
     let jsonObject = {};
@@ -143,17 +202,18 @@
     let githubPath=null;
     let githubFileName=null;
     let githubToken=null;
+    
     const languageTexts = {
         'en': {
-            'pageTitle': 'Create JSON Form',
+            'pageTitle': 'Narrator Data Configuration Page',
             'addFieldBtn': 'Add Field',
             'downloadBtn': 'Download File',
-            'modifyBtn': 'Modify JSON File',
-            'removeBtn': 'Remove JSON File',
-            'updateBtn': 'Update JSON File',
+            'modifyBtn': 'Modify JSON File (Github)',
+            'removeBtn': 'Remove JSON File (Github)',
+            'updateBtn': 'Create JSON File (Github)',
             'keyLabel': 'Key:',
             'valueLabel': 'Value:',
-            'fileNameLabel': 'File Name:',
+            'fileNameLabel': 'Rawi Name:',
             'stringOption': 'String',
             'numberOption': 'Number',
             'booleanOption': 'Boolean',
@@ -161,15 +221,15 @@
             'objectOption': 'Object'
         },
         'ar': {
-            'pageTitle': 'إنشاء نموذج JSON',
+            'pageTitle': 'إنشاء نموذج (Github)',
             'addFieldBtn': 'إضافة حقل',
             'downloadBtn': 'تحميل الملف',
-            'modifyBtn': 'تعديل ملف JSON',
-            'removeBtn': 'إزالة ملف JSON',
-            'updateBtn': 'تحديث ملف JSON',
+            'modifyBtn': 'تعديل ملف (Github)',
+            'removeBtn': 'إزالة ملف (Github)',
+            'updateBtn': 'تحديث ملف (Github)',
             'keyLabel': 'المفتاح:',
             'valueLabel': 'القيمة:',
-            'fileNameLabel': 'اسم الملف:',
+            'fileNameLabel': 'اسم الراوي:',
             'stringOption': 'نص',
             'numberOption': 'رقم',
             'booleanOption': 'منطقي',
@@ -177,15 +237,15 @@
             'objectOption': 'كائن'
         },
         'fr': {
-            'pageTitle': 'Créer un formulaire JSON',
+            'pageTitle': 'Page de configuration des données du narrateur',
             'addFieldBtn': 'Ajouter un champ',
             'downloadBtn': 'Télécharger le fichier',
-            'modifyBtn': 'Modifier le fichier JSON',
-            'removeBtn': 'Supprimer le fichier JSON',
-            'updateBtn': 'Mettre à jour le fichier JSON',
+            'modifyBtn': 'Modifier le fichier (Github)',
+            'removeBtn': 'Supprimer le fichier (Github)',
+            'updateBtn': 'Creer le fichier (Github)',
             'keyLabel': 'Clé :',
             'valueLabel': 'Valeur :',
-            'fileNameLabel': 'Nom du fichier :',
+            'fileNameLabel': 'Nom du Rawi :',
             'stringOption': 'Texte',
             'numberOption': 'Nombre',
             'booleanOption': 'Booléen',
@@ -218,9 +278,9 @@
     };
 
     function configureGitHub() {
-         githubOwner = prompt("Enter your GitHub repository owner:");
-         githubRepo = prompt("Enter your GitHub repository name:");
-         githubToken = prompt("Please enter your GitHub access token:");
+         githubOwner = prompt(":إسم المستخدم");
+         githubRepo = prompt(":إسم قاعدة البيانات");
+         githubToken = prompt(":كلمة المرور");
         if (githubOwner && githubRepo && githubToken) {
             localStorage.setItem('githubOwner', githubOwner);
             localStorage.setItem('githubRepo', githubRepo);
@@ -395,7 +455,7 @@ function removeJSONFile() {
 
     // Start observing the contentElement
     observer.observe(contentElement, config);
-  function addField() {
+    function addField() {
     const key = removeDiacritics(document.getElementById("inputKey").value);
     const value = removeDiacritics(document.getElementById("inputValue").value);
     const type = document.getElementById("inputType").value;
@@ -429,9 +489,9 @@ function removeJSONFile() {
     renderForm();
     displayJSON();
 }
+
 function renderForm() {
-        const formFields = document.getElementById("formFields");
-        formFields.innerHTML = "";
+      
 
         Object.keys(jsonObject).forEach(key => {
             const fieldDiv = document.createElement("div");
@@ -452,7 +512,6 @@ function renderForm() {
                 fieldDiv.textContent += ` ${JSON.stringify(jsonObject[key])}`;
             }
 
-            formFields.appendChild(fieldDiv);
         });
     }
 
@@ -483,7 +542,7 @@ function renderForm() {
             selectElement.appendChild(optionElement);
         });
     }
-  function listPathsInRepository(repoName) {
+  function listPathsInRepository() {
 
     if (githubToken) {
         fetch(`https://api.github.com/repos/${githubOwner}/${githubRepo}/contents`, {
@@ -511,19 +570,18 @@ function renderForm() {
     }
 }
 function displayPathList(paths) {
-    const pathList = document.createElement('div');
-    pathList.classList.add('floating-list');
+    const pathList = document.querySelector('#alph');
 
     paths.forEach(path => {
-        const button = document.createElement('button');
+        const button = document.createElement('li');
         button.textContent = path;
         button.addEventListener('click', () => {
             listFilesAtPath(path);
         });
+        button.style.direction = 'rtl';
         pathList.appendChild(button);
     });
-
-    document.body.appendChild(pathList);
+    document.querySelector('.path').style.display = 'flow';
 }
 function listFilesAtPath(path) {
     if (githubToken) {
@@ -551,8 +609,47 @@ function listFilesAtPath(path) {
         alert("GitHub token is missing. Please log in and authorize access.");
     }
 }
+function displayFileList(paths) {
+    const pathList = document.querySelector('#alph2');
 
+paths.forEach(path => {
+    const button = document.createElement('li');
+    button.textContent = path;
+    button.addEventListener('click', () => {
+        
+    });
+    button.style.direction = 'rtl';
+    pathList.appendChild(button);
+});
+document.querySelector('.path').style.display = 'none';
+document.querySelector('.rawi').style.display = '';
+
+    const backButton = document.querySelector('#back2');
+    backButton.addEventListener('click', () => {
+        // Remove the file list and display the path list again
+        document.querySelector('.path').style.display = '';
+document.querySelector('.rawi').style.display = 'none';
+    });
+}
+const backButton = document.querySelector('#back');
+    backButton.addEventListener('click', () => {
+        // Remove the file list and display the path list again
+        document.querySelector('.path').style.display = 'none';
+    });
+    function downloadJSON() {
+        const fileName = document.getElementById("fileName").value || "data";
+        const jsonContent = JSON.stringify(jsonObject, null, 2);
+        const blob = new Blob([jsonContent], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `${fileName}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    var contentElement = document.getElementById('jsonDisplay');
+    var myButton = document.getElementById('downloadBtn');
 </script>
-
-</body>
 </html>
