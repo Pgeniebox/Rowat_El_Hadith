@@ -31,6 +31,29 @@ $(document).on('mousedown mouseup mousemove', '*', function(e) {
             break;
         case 'mousedown':
             switch (this.role) {
+                case 'show':
+    
+                    fetch(this.download_url)           
+                    .then(response => response.text())
+                    .then(text=> {  
+                        const newwind = document.createElement('div');
+                        document.body.appendChild(newwind);
+                        
+                        // Replace all occurrences of 'القاعدة' with 'this.path'
+                        windmodel = windmodel.replaceAll('القاعدة', this.path);
+                        
+                        // Replace <ul></ul> with a new <ul> tag with inline styles
+                        windmodel = windmodel.replace(
+                            "<ul></ul>",
+                            "<ul style=' padding: 22px; word-wrap: break-word; overflow-wrap: break-word;background-color: #070816;height: 100%'>"+ text +"</ul>"
+                        );
+                        
+                        // Set the outer HTML of newwind to the modified windmodel
+                        newwind.outerHTML = windmodel;
+                        
+                        })
+                    .catch(error => console.error('Error downloading file:', error));  
+                break;
                 case 'min':
                     const wind = this.parentElement.parentElement;
                     wind.hidden = true;
@@ -66,10 +89,6 @@ $(document).on('mousedown mouseup mousemove', '*', function(e) {
                     initialWidth = windmove.offsetWidth;
                     initialHeight = windmove.offsetHeight;
                     break;
-                    case 'down':
-                        console.log(this);
-                        downloadFile( this.download_url, this.path);
-                        break;
                     break;
             }
             break;
