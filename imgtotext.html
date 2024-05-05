@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text to Canvas</title>
+</head>
+<body>
+    <input type="text" id="textInput" placeholder="Enter text">
+    <button onclick="generateImage()">Generate Image</button>
+    <img id="generatedImage" src="/img.jpg" alt="Generated Image">
+    
+</body>
+<script>
+    // Initialize variables
+var previousDataURL = '';
+
+// Function to generate canvas and upload image
+function generateImage() {
+    var text = document.getElementById('textInput').value;
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    canvas.width = 20; // Adjust canvas size as needed
+    canvas.height = 20;
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'black';
+    ctx.fillText(text, 10, 10);
+
+    // Convert canvas to image
+    var dataURL = canvas.toDataURL('image/jpeg');
+
+    // Check if data URL has changed
+    if (dataURL !== previousDataURL) {
+        // Upload image to GitHub repo using token
+        uploadImageToGitHub(dataURL);
+
+        // Update previous data URL
+        previousDataURL = dataURL;
+    }
+}
+
+// Function to upload image to GitHub repo
+function uploadImageToGitHub(dataURL) {
+    // Use GitHub API or other method to upload image
+    // Example:
+    githubOwner = 'pgeniebox';
+         githubRepo = 'rowat-admin';
+  fetch('https://api.github.com/repos/pgeniebox/rowat-admin/contents/img.jpg', {
+       method: 'PUT',
+        headers: {
+             Authorization: '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',
+             'Content-Type': 'application/json'
+         },
+        body: JSON.stringify({
+            message: 'Update image',
+            content: dataURL.split(',')[1]
+        })
+     })
+     .then(response => {
+        if (response.ok) {
+            console.log('Image uploaded successfully');
+        } else {
+            console.error('Failed to upload image');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+// Function to periodically check for changes in image
+setInterval(checkForChanges, 5000);
+
+// Function to check for changes in image
+function checkForChanges() {
+    var image = document.getElementById('generatedImage');
+    image.src = '/img.jpg';
+    if (image) {
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        canvas.width = image.width;
+        canvas.height = image.height;
+        ctx.drawImage(image, 0, 0);
+        var currentDataURL = canvas.toDataURL('image/jpeg');
+
+        // Compare data URLs
+        if (currentDataURL !== previousDataURL) {
+            console.log('Test is OK');
+            // Update previous data URL
+            previousDataURL = currentDataURL;
+        }
+    }
+}
+
+</script>
+</html>

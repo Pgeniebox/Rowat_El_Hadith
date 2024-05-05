@@ -1,222 +1,135 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="main.css">
     <title>Create JSON Form</title>
-    <style>
-        
-        body {position: relative;
-            background-color: #26282b;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flow-root;
-         
-            height: 100vh;
-           width: -webkit-fill-available;
-           left: 0;
-           top: 0;
-      text-align: -webkit-center;
-      direction: rtl;
-        }
 
-        #container {direction: rtl;
-            top: 5%;
-            width: 60%;
-            height: 80vh;
-            max-width: 600px;
-            border-radius: 4px;
-            border: 1px solid rgb(73, 72, 72);
-            text-align: center;
-            position: absolute;
-            overflow: hidden;
-       left: 5%;
-       gap: 10%;
-        }
-.head{position: relative;
-    width: 100%;
-padding: 10px;    
-    background-color: rgba(19, 36, 49, 0.37);
-border-bottom:1px solid rgb(73, 72, 72) ;
-justify-content: start;
-display: flex;
-
+<style>body {position: relative;
+    background-color: #2e3136;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flow-root;
+ 
+    height: 100vh;
+   width: -webkit-fill-available;
+   left: 0;
+   top: 0;
+text-align: -webkit-center;
+direction: rtl;
 }
 
-        h2 {direction: rtl;
-            color: #fff;
-            margin-bottom: 20px;
-        }
-
-        label {direction: rtl;
-            color: #fff;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        input[type="text"],
-        select {direction: rtl;
-            background-color: #444;
-            color: #fff;
-            border: 1px solid #666;
-            padding: 8px;
-            margin-bottom: 10px;
-            width: 100%;
-            box-sizing: border-box;
-            border-radius: 5px;
-        }
-
-        button {direction: rtl;
-            background-color: transparent;
-            color: #fff;
-            padding: 10px 10px;
-            border: none;
-            cursor: pointer;
-            border-radius: 3px;
-        }
-
-        button:hover {direction: rtl;
-            background-color: #0e3069;
-        }
-
-        pre {direction: rtl;
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            
-            white-space: pre-wrap;
-            margin-top: 20px;
-            font-size: 14px;
-            overflow-x: auto;
-        }
-
-        #jsonDisplay {direction: rtl;
-            text-align: left;
-            padding: 2%;
-            background-color: #1d1d1d;
-            color: #fff;
-            max-height: 250px;
-            scrollbar-width:none;
-        }
-
-        #window {direction: rtl;
-            background-color: #435266;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-            height: 70%;
-            width: 70%;
-        }
-
-        .title {direction: rtl;
-            color: #fff;
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        ul {direction: rtl;
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            text-align: left;
-            max-height: -webkit-fill-available;
-            scrollbar-width: none;
-            overflow: scroll;
-        }
-
-        li {direction: rtl;
-            background-color: #444444;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        p{direction: rtl;
-            border: 1px solid;
-            color: white;
-         font-size: large;
-         font-family: 'Courier New', Courier, monospace;
-        }
-.custom-dialog {
-    position: fixed;
-    bottom: -500px; 
-    left: 20px; 
-    background-color: #e9e8e5;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    box-shadow: black 0 0 5px 2px;
-    display: none; 
-}
-
-.custom-dialog.show {
-    display: block;
-    animation: slideIn 0.5s forwards;
-}
-
-
-@keyframes slideIn {
-    0% {
-        bottom: -500px;
-    }
-    100% {
-        bottom: 20px;
-    }
-}
-svg{direction: rtl;
-    padding: 10px;
-border-radius: 50%;
-}
-svg:hover{
-    background-color: #121922;
-}
-        #credit {direction:ltr;
-            color: #aaa;
-            margin-top: 20px;
-            position: absolute;
-            bottom: 5%;
-            justify-content: center;
-            width: -webkit-fill-available;
-        }
-    </style>
+</style>
 </head>
-<body>
-    <div id="container">
-        <div class="head">
-            <svg data-description="Description 1" fill="white" width="10px" height="10px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M464 352H48c-26.5 0-48 21.5-48 48v32c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48v-32c0-26.5-21.5-48-48-48z"/></svg>
-            <p>ييسبب</p>
-        </div></div>
-  <div id="credit">Created by Lagab Adel | from Algeria</div> 
-  <div id="customDialog" class="custom-dialog">
+<body>    
+    <div name="القاعدة" id="container">
+        <div role="move" class="head">
+            <svg role="min" class="tooltip svg" title="إخفاء النافذة" style="right: 20px;position:relative;"  fill="white" width="10px" height="10px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M464 352H48c-26.5 0-48 21.5-48 48v32c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48v-32c0-26.5-21.5-48-48-48z"/></svg>
+            <p style="cursor: none;pointer-events: none;left: 40px;position: absolute;font-weight: 600;">القاعدة</p>
+        </div>
+        <ul></ul>
+        <svg  role="resize" style="cursor:se-resize;z-index: 99999999999;position: absolute;bottom: -5px;right: -5px;border-radius:0;" width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 15L15 21M21 8L8 21" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            </div>
+        <div id="customDialog" class="custom-dialog">
     <p id="customMessage" style="color: black;">This is a notification message.</p>
-    <button onclick="hideCustomDialog()">إخفاء</button>
 </div>
+<div class="head" tabindex="0" id="taskBar" style="width: 100%;pointer-events: none;padding-right: 20px;position: fixed;bottom: 0;border-top: 1px solid rgb(97, 97, 97);"></div>
+
 </body>
+<script src="ui.js"></script>
+<script src="gitfetch.js"></script>
 <script>
+   let jsonObject = {};
    let githubOwner='Pgeniebox';
    let githubRepo='Rowat_El_Hadith';
-   let githubToken=null;
-   let dialog = document.getElementById("customDialog");
-   let dialnot = document.getElementById("customMessage");
+  /// let githubToken = localStorage.getItem('githubToken');
+  let githubToken = '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';
+   let githubPath=null;
+   let githubFileName=null;
+   function listPathsInRepository(wind) {
+
+if (githubToken) {
+    fetch(`https://api.github.com/repos/${githubOwner}/${githubRepo}/contents`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `token ${githubToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                })
+    .then(response => response.json())
+    .then(data => {
+        if (Array.isArray(data)) {
+            const paths = data.filter(item => item.type === 'file'||item.type === 'folder').map(item => item);
+            displayPathList(paths,wind);
+        } else {
+            throw new Error('Failed to fetch paths');
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        alert("Failed to fetch paths. Please try again.");
+    });
+} else {
+    alert("GitHub token is missing. Please log in and authorize access.");
+}
+}
+function displayPathList(paths, wind) {
+    paths.forEach(item => {
+        const button = document.createElement('li');
+        const svg = document.createElement('svg');
+        button.appendChild(svg);
+        const p = document.createElement('p');
+        p.textContent = item.path;
+        button.appendChild(p);
+        wind.appendChild(button);
+
+        // Check if item type is folder or file and set SVG accordingly
+        if (item.type === 'folder') {
+            svg.outerHTML = '<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.06935 5.25839C2 5.62595 2 6.06722 2 6.94975V9.25H21.9531C21.8809 8.20117 21.6973 7.51276 21.2305 6.99383C21.1598 6.91514 21.0849 6.84024 21.0062 6.76946C20.1506 6 18.8345 6 16.2021 6H15.8284C14.6747 6 14.0979 6 13.5604 5.84678C13.2651 5.7626 12.9804 5.64471 12.7121 5.49543C12.2237 5.22367 11.8158 4.81578 11 4L10.4497 3.44975C10.1763 3.17633 10.0396 3.03961 9.89594 2.92051C9.27652 2.40704 8.51665 2.09229 7.71557 2.01738C7.52976 2 7.33642 2 6.94975 2C6.06722 2 5.62595 2 5.25839 2.06935C3.64031 2.37464 2.37464 3.64031 2.06935 5.25839ZM21.9978 10.75H2V14C2 17.7712 2 19.6569 3.17157 20.8284C4.34315 22 6.22876 22 10 22H14C17.7712 22 19.6569 22 20.8284 20.8284C22 19.6569 22 17.7712 22 14V11.7979C22 11.4227 21.9978 10.75 21.9978 10.75Z" fill="rgba(255, 255, 255, 0.196)"/></svg>';
+        } else if (item.type === 'file') {
+            svg.outerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none"><path d="M12.0098 3H8.2C7.0799 3 6.51984 3 6.09202 3.21799C5.71569 3.40973 5.40973 3.71569 5.21799 4.09202C5 4.51984 5 5.0799 5 6.2V17.8C5 18.9201 5 19.4802 5.21799 19.908C5.40973 20.2843 5.71569 20.5903 6.09202 20.782C6.51984 21 7.0799 21 8.2 21H15.8C16.9201 21 17.4802 21 17.908 20.782C18.2843 20.5903 18.5903 20.2843 18.782 19.908C19 19.4802 19 18.9201 19 17.8V9M13 3L19 9M13 3V7.4C13 7.96005 13 8.24008 13.109 8.45399C13.2049 8.64215 13.3578 8.79513 13.546 8.89101C13.7599 9 14.0399 9 14.6 9H19" stroke="rgba(255, 255, 255, 0.26)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+            const down = document.createElement('svg');
+           
+            button.appendChild(down);
+            down.style.left = '0';
+            down.style.position = 'absolute';
+            down.outerHTML = '<svg fill="rgba(255, 255, 255, 0.196)" width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><title>download-cloud</title><path d="M0 16q0 2.912 1.824 5.088t4.576 2.752q0.032 0 0.032-0.032v-0.064t0.032-0.032q0.544-1.344 1.344-2.176t2.208-1.184v-2.336q0-2.496 1.728-4.256t4.256-1.76 4.256 1.76 1.76 4.256v2.336q1.376 0.384 2.176 1.216t1.344 2.144l0.096 0.288h0.384q2.464 0 4.224-1.76t1.76-4.224v-2.016q0-2.464-1.76-4.224t-4.224-1.76q-0.096 0-0.32 0.032 0.32-1.152 0.32-2.048 0-3.296-2.368-5.632t-5.632-2.368q-2.88 0-5.056 1.824t-2.784 4.544q-1.152-0.352-2.176-0.352-3.296 0-5.664 2.336t-2.336 5.664v1.984zM10.016 25.824q-0.096 0.928 0.576 1.6l4 4q0.576 0.576 1.408 0.576t1.408-0.576l4-4q0.672-0.672 0.608-1.6-0.064-0.32-0.16-0.576-0.224-0.576-0.736-0.896t-1.12-0.352h-1.984v-5.984q0-0.832-0.608-1.408t-1.408-0.608-1.408 0.608-0.576 1.408v5.984h-2.016q-0.608 0-1.12 0.352t-0.736 0.896q-0.096 0.288-0.128 0.576z"></path></svg>'
+            down.download_url = item.download_url; down.path =item.path;
+            down.role = 'down';
+        }
+
+        p.addEventListener('click', () => {
+            listFilesAtPath(item.path);
+        });
+    });
+}
 
 
-   
+listPathsInRepository(document.querySelector('ul'));
+function downloadFile(url, filename) {
+    // Create a link element
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
 
+    // Append the link to the body
+    document.body.appendChild(link);
+
+    // Trigger the download
+    link.click();
+
+    // Clean up
+    document.body.removeChild(link);
+}
   
-function showCustomDialog(note) {
-    dialnot.textContent = note;
-
-    dialog.classList.add("show"); 
-}
-
-function hideCustomDialog() {
-    dialog.classList.remove("show"); 
-}
-
-
 </script>
 
 </html>

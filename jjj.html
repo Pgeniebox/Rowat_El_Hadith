@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create JSON Form</title>
+    <style>
+        
+        body {position: relative;
+            background-color: #26282b;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flow-root;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+           width: -webkit-fill-available;
+           left: 0;
+           top: 0;
+      text-align: -webkit-center;
+      direction: rtl;
+        }
+
+        #container {direction: rtl;
+            margin-top: 5%;
+            width: 80%;
+            max-width: 600px;
+            padding: 40px;
+            background-color: #313335;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+       align-self: center;
+       justify-self: center;
+       left: 0%;
+       gap: 10%;
+        }
+
+        h2 {direction: rtl;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        label {direction: rtl;
+            color: #fff;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        select {direction: rtl;
+            background-color: #444;
+            color: #fff;
+            border: 1px solid #666;
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+
+        button {direction: rtl;
+            background-color: #163d81;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 3px;
+            margin-top: 10px;
+        }
+
+        button:hover {direction: rtl;
+            background-color: #2e4f89;
+        }
+
+        pre {direction: rtl;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            white-space: pre-wrap;
+            margin-top: 20px;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        #jsonDisplay {direction: rtl;
+            text-align: left;
+            padding: 2%;
+            background-color: #1d1d1d;
+            color: #fff;
+            max-height: 250px;
+            scrollbar-width:none;
+        }
+
+        #window {direction: rtl;
+            background-color: #435266;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            height: 70%;
+            width: 70%;
+        }
+
+        .title {direction: rtl;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        ul {direction: rtl;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+            max-height: -webkit-fill-available;
+            scrollbar-width: none;
+            overflow: scroll;
+        }
+
+        li {direction: rtl;
+            background-color: #444444;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        p{direction: rtl;
+            color: white;
+         font-size: large;
+         font-family: 'Courier New', Courier, monospace;
+        }
+.custom-dialog {
+    position: fixed;
+    bottom: -500px; 
+    left: 20px; 
+    background-color: #e9e8e5;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: black 0 0 5px 2px;
+    display: none; 
+}
+
+.custom-dialog.show {
+    display: block;
+    animation: slideIn 0.5s forwards;
+}
+
+
+@keyframes slideIn {
+    0% {
+        bottom: -500px;
+    }
+    100% {
+        bottom: 20px;
+    }
+}
+
+
+        #credit {direction:ltr;
+            color: #aaa;
+            margin-top: 20px;
+            position: absolute;
+            bottom: 5%;
+            justify-content: center;
+            width: -webkit-fill-available;
+        }
+    </style>
+</head>
+<body>
+    <p style="font-size: xx-large;font-weight: 700;">بوابة قاعدة بيانات الرواة </p>
+    <div id="container" style="visibility: hidden;"> <p>يرجى إدخال كلمة المرور</p><input type="text" style="direction: ltr;background-color: rgba(0, 0, 0, 0.342);"><button id="ok" go='false' style="opacity: 0.5;pointer-events: none;">تأكيد</button></div>
+  <div id="credit">Created by Lagab Adel | from Algeria</div> 
+  <div id="customDialog" class="custom-dialog">
+    <p id="customMessage" style="color: black;">This is a notification message.</p>
+    <button onclick="hideCustomDialog()">Close</button>
+</div>
+</body>
+<script>
+     let githubOwner='Pgeniebox';
+    let githubRepo='Rowat_El_Hadith';
+    let githubToken=null;
+   let ok = document.getElementById('ok');
+   let input = document.querySelector('input');
+   let dialog = document.getElementById("customDialog");
+   let dialnot = document.getElementById("customMessage");
+   loadConfigFromLocalStorage();
+
+    input.addEventListener("input", ()=> {
+        if (input.value.trim().length > 10) {
+            ok.style.pointerEvents = 'all';
+            ok.style.opacity = '1';
+        } else {
+            ok.style.pointerEvents = 'none';
+            ok.style.opacity = '0.5';
+        }
+});
+   
+
+    function loadConfigFromLocalStorage() {
+     githubToken = localStorage.getItem('githubToken');
+        if (githubToken) {
+             location.assign("https://pgeniebox.github.io/Rowat_El_Hadith/");
+        }else{ document.getElementById('container').style.visibility='visible';}
+    }
+    ok.onclick = function(){
+    githubToken = input.value.trim();
+    fetch(`https://api.github.com/repos/${githubOwner}/${githubRepo}/contents`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `token ${githubToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            localStorage.setItem('githubToken', githubToken);
+                        } else {
+                            showCustomDialog('حصل خطأ!'); 
+
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        showCustomDialog('حصل خطأ!'); 
+                    });
+    }
+function showCustomDialog(note) {
+    dialnot.textContent = note;
+
+    dialog.classList.add("show"); 
+}
+
+function hideCustomDialog() {
+    dialog.classList.remove("show"); 
+}
+
+
+</script>
+
+</html>
