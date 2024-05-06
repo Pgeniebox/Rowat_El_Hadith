@@ -11,7 +11,7 @@
 
 <style>
 body {position: relative;
-    background-color: #292d33;
+    background-color: rgb(34, 39, 46);
     color: #fff;
     font-family: Arial, sans-serif;
     margin: 0;
@@ -25,25 +25,40 @@ body {position: relative;
 text-align: -webkit-center;
 direction: rtl;
 }
-
+* {
+    -webkit-font-smoothing: antialiased; /* For Safari, Chrome, newer versions of Opera */
+    -moz-osx-font-smoothing: grayscale; /* For Firefox on macOS */
+    font-smooth: always; /* For Internet Explorer */
+}
+.option{
+    height: 50px;
+    width: 50px;
+    top: 100px;
+ left: 100px; 
+    position: fixed;
+    border-radius: 6px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+background-color:var(--headColor);
+}
 </style>
 </head>
 <body>    
     <div name="القاعدة" id="container">
-        <div role="move" class="head">
-            <svg role="min" class="tooltip svg" title="إخفاء النافذة" style="right: 20px;position:relative;"  fill="white" width="10px" height="10px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M464 352H48c-26.5 0-48 21.5-48 48v32c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48v-32c0-26.5-21.5-48-48-48z"/></svg>
+        <div slot="move" class="head">
+            <svg slot="min" class="tooltip svg" title="إخفاء النافذة" style="right: 20px;position:relative;"  fill="white" width="10px" height="10px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M464 352H48c-26.5 0-48 21.5-48 48v32c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48v-32c0-26.5-21.5-48-48-48z"/></svg>
             <p style="cursor: none;pointer-events: none;left: 40px;position: absolute;font-weight: 600;">القاعدة</p>
         </div>
         <ul></ul>
-        <svg  role="resize" style="cursor:se-resize;z-index: 99999999999;position: absolute;bottom: -5px;right: -5px;border-radius:0;" width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg  slot="resize" style="cursor:se-resize;z-index: 99999999999;position: absolute;bottom: -5px;right: -5px;border-radius:0;" width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M21 15L15 21M21 8L8 21" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             </div>
         <div id="customDialog" class="custom-dialog">
-    <p id="customMessage" style="color: black;">This is a notification message.</p>
+    <p id="customMessage" style="color: var(--main-color);">This is a notification message.</p>
 </div>
-<div class="head" tabindex="0" id="taskBar" style="width: 100%;pointer-events: none;padding-right: 20px;position: fixed;bottom: 0;border-top: 1px solid rgb(97, 97, 97);gap: 10px;"></div>
-
+<div class="head" tabindex="0" id="taskBar" style="width: 100%;pointer-events: none;padding-right: 20px;position: fixed;bottom: 0;border-top: 1px solid var(--border-color);gap: 10px;background-color: #2d333b;"></div>
+<ul class="option"></ul>
 </body>
 <script src="ui.js"></script>
 <script src="gitfetch.js"></script>
@@ -53,7 +68,7 @@ direction: rtl;
    let githubOwner='Pgeniebox';
    let githubRepo='Rowat_El_Hadith';
   /// let githubToken = localStorage.getItem('githubToken');
-  let githubToken = '';
+  let githubToken = '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';
    let githubPath=null;
    let githubFileName=null;
    function listPathsInRepository(wind) {
@@ -92,7 +107,7 @@ function displayPathList(paths, wind) {
         p.textContent = item.path;
         button.appendChild(p);
         wind.appendChild(button);
-        button.role = 'show';
+        button.slot = 'show';
         button.path =item.path;
 
         button.download_url = item.download_url;
@@ -106,7 +121,7 @@ function displayPathList(paths, wind) {
             button.appendChild(a);
             a.href = item.download_url;
             a.path =item.path;
-            a.role = 'down';
+            a.slot = 'down';
             a.style.left = '0';
             a.style.position = 'absolute';
             a.appendChild(down);
@@ -117,6 +132,9 @@ function displayPathList(paths, wind) {
 }
 
 //listPathsInRepository(document.querySelector('ul'));
+
+
+
 
 </script>
 

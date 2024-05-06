@@ -30,7 +30,7 @@ $(document).on('mousedown mouseup mousemove', '*', function(e) {
             }
             break;
         case 'mousedown':
-            switch (this.role) {
+            switch (this.slot) {
                 case 'show':
     
                     fetch(this.download_url)           
@@ -58,13 +58,13 @@ $(document).on('mousedown mouseup mousemove', '*', function(e) {
                     const wind = this.parentElement.parentElement;
                     wind.hidden = true;
                     const newT = document.createElement('p');
-                    newT.style.border = '1px solid rgb(97, 97, 97)';
+                    newT.style.border = '1px solid var(--border-color)';
                     newT.style.borderRadius = '5px';
                     newT.style.padding = '5px';
                     newT.classList = 'newT';
                     newT.style.pointerEvents = 'all';
                     newT.style.cursor = 'pointer';
-                    newT.role = 'open';
+                    newT.slot = 'open';
                     newT.style.zIndex = '99999999';
                     newT.style.fontWeight = '600';
                     newT.style.position = 'relative';
@@ -93,7 +93,15 @@ $(document).on('mousedown mouseup mousemove', '*', function(e) {
             }
             break;
             case 'mouseup':
-            windmove=null;    
+                switch(window.getSelection().getRangeAt(0).commonAncestorContainer.parentElement.slot){
+                    case 'seltext':
+                  const seltext = document.createElement('p');
+                  const rect = window.getSelection().getRangeAt(0).getBoundingClientRect();
+                  
+                  window.getSelection().toString();
+                    break;
+                       }
+                       if(null!=windmove){windmove.state='fixe';windmove=null;}
             break;
     }
 });
