@@ -11,6 +11,7 @@ document.addEventListener('mousemove', function(e) {
         case 'mousemove':
             if (windmove !== null) {
                 if (windmove.state === 'move') {
+                    windmove.style.boxShadow = 'var(--shadow)';
                     windmove.style.left = e.clientX - offsetX + 'px';
                     windmove.style.top = e.clientY - offsetY + 'px';
                 } else if (windmove.state === 'resize'){
@@ -80,7 +81,7 @@ document.addEventListener('mouseup', function(e) {
                     break;
               
             }        
-            if(null!=windmove){windmove=null;}
+            if(null!=windmove){windmove.style.boxShadow = '';   windmove=null;}
             return;
     }
 });

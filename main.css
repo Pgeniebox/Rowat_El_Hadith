@@ -9,9 +9,10 @@
     --input-background: #444;
     --button-background: transparent;
     --button-hover-background: #0e3069;
-    --pointer: #2b3036;
-    --headColor: #444c56;
+    --pointer: #485663;
+    --headColor: rgb(45, 51, 59);
     --shadow: rgba(0, 0, 0, 0.582) 2px 2px 5px 0px;
+    --user: #537fac;
   }
   .seltext{
     background-color: #636e7b;
@@ -46,6 +47,7 @@
     display: flex;
     align-items: center;
     direction: var(--main-direction);
+    gap: 10px;
   }
   
   h2, label, input[type="text"], select, button, pre, #jsonDisplay, #window, .title, ul, li, p, .newT:hover, .defaultTooltip, .custom-dialog, svg, .svg:hover, #credit {
@@ -197,7 +199,9 @@
   .svg:hover {
     background-color: var(--pointer);
   }
-  
+  .close:hover{
+    background-color:indianred;
+  }
   #credit {
     color: #aaa;
     margin-top: 20px;
