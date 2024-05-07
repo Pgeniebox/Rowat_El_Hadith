@@ -1,15 +1,12 @@
-let windmove = null;
-let initialX = 0;
-let initialY = 0;
-let initialWidth = 0;
-let initialHeight = 0;
-let offsetX = 0;
-let offsetY = 0;
-let working=true;
-toolt = document.querySelector('.option');
+
+var toolt = document.querySelector('.option');
+   toolt.hidden=true;
 
 
-$(document).on('mousedown mouseup mousemove mouseover mouseout','*', function(e) {
+var isEventHandled = false;
+var windmove = null;
+var offsetX, offsetY, initialX, initialY, initialWidth, initialHeight;
+document.addEventListener('mousemove', function(e) {
     switch (e.type) {
         case 'mousemove':
             if (windmove !== null) {
@@ -26,34 +23,17 @@ $(document).on('mousedown mouseup mousemove mouseover mouseout','*', function(e)
                 }
             } else {
                 if (null != e.target.attributes.title) {
-               requestAnimationFrame(()=>{tooltip(e,e.target)});
+                    requestAnimationFrame(()=>{toolti(e,e.target)});
                 }
             }
+            return;
+    }
+});
 
-            break;
+document.addEventListener('mousedown', function(e) {
+    switch (e.type) {
         case 'mousedown':
             switch (e.target.slot) {
-                case 'min':
-                    const wind = e.target.parentElement.parentElement;
-                    wind.hidden = true;
-                    const newT = document.createElement('p');
-                    document.getElementById('taskBar').appendChild(newT);
-                    newT.style.border = '1px solid var(--border-color)';
-                    newT.style.borderRadius = '5px';
-                    newT.style.padding = '5px';
-                    newT.classList = 'newT';
-                    newT.style.pointerEvents = 'all';
-                    newT.style.cursor = 'pointer';
-                    newT.slot = 'open';
-                    newT.style.zIndex = '99999999';
-                    newT.style.fontWeight = '600';
-                    newT.style.position = 'relative';
-                    newT.textContent = wind.attributes.name.nodeValue;
-                    break;
-                case 'open':
-                    document.querySelector('[name="' + e.target.textContent + '"]').hidden = false;
-                    e.target.remove();
-                    break;
                 case 'move':
                     windmove = e.target.parentElement;
                     windmove.state = 'move';
@@ -69,33 +49,54 @@ $(document).on('mousedown mouseup mousemove mouseover mouseout','*', function(e)
                     initialHeight = windmove.offsetHeight;
                     break;
             }
-            break;
-        case 'mouseup':
-            case 'show':
-                   if(working){working=false;
-                fetch(e.target.download_url)           
-                .then(response => response.text())
-                .then(text=> {  
-                    const newwind = document.createElement('div');
-                    document.body.appendChild(newwind);
-                    windmodel = windmodel.replaceAll('القاعدة', e.target.path);
-                    windmodel = windmodel.replace(
-                        "<ul></ul>",
-                        "<ul slot='seltext' style=' padding: 22px; word-wrap: break-word; overflow-wrap: break-word;background-color: #070816;height: 100%'>"+ text +"</ul>"
-                    );
-                    newwind.outerHTML = windmodel;
-                })
-                .finally(()=>{working=true;})
-                .catch(error => console.error('Error downloading file:', error));}  
-            if(null!=windmove){windmove.state='fixe';windmove=null;}
-            break;
-        case 'mouseout':
-            if(!toolt.hidden){toolt.style.opacity = '0'}    
-        break; 
+            return;
     }
 });
 
-function tooltip(e,a){toolt.textContent = a.attributes.title.value;
+document.addEventListener('mouseup', function(e) {
+    switch (e.type) {
+        case 'mouseup':
+            switch(e.target.slot){
+                case 'min':
+                    const wind = e.target.parentElement.parentElement;
+                    wind.hidden = true;
+                    const newT = document.createElement('p');
+                    document.getElementById('taskBar').appendChild(newT);
+                    newT.style.border = '1px solid var(--border-color)';
+                    newT.style.borderRadius = '5px';
+                    newT.style.padding = '5px';
+                    newT.classList = 'newT';
+                    newT.style.pointerEvents = 'all';
+                    newT.style.cursor = 'pointer';
+                    newT.slot = 'open';
+                    newT.style.zIndex = '1';
+                    newT.style.fontWeight = '600';
+                    newT.style.position = 'relative';
+                    newT.onclick = function (){    document.querySelector('[name="' + this.textContent + '"]').hidden = false;
+                    this.remove();
+
+                    }
+                    newT.textContent = wind.attributes.name.nodeValue;
+                    break;
+              
+            }        
+            if(null!=windmove){windmove=null;}
+            return;
+    }
+});
+
+document.addEventListener('mouseout', function(e) {
+    switch (e.type) {
+        case 'mouseout':
+            if(!toolt.hidden){toolt.style.opacity = '0'}    
+            break; 
+    }
+});
+
+
+
+function toolti(e,a){
+    toolt.textContent = a.attributes.title.value;
     toolt.style.opacity = '0.9';
 
   
@@ -118,3 +119,5 @@ function tooltip(e,a){toolt.textContent = a.attributes.title.value;
     }
 
     toolt.hidden = false;}
+
+   
