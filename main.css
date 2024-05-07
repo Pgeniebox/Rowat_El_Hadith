@@ -13,7 +13,14 @@
     --headColor: #444c56;
     --shadow: rgba(0, 0, 0, 0.582) 2px 2px 5px 0px;
   }
-  
+  .seltext{
+    background-color: #636e7b;
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  }
   #container {
     direction: var(--main-direction);
     top: 10%;
@@ -146,9 +153,9 @@
   }
   
   .defaultTooltip {
-    background: #636e7b;
+    background-color: #636e7b;
     color: #fff;
-    border: 1px solid var(--border-color);
+    border: none;
     width: fit-content;
     box-shadow: none;
     stroke: none;

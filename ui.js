@@ -45,7 +45,7 @@ $(document).on('mousedown mouseup mousemove', '*', function(e) {
                         // Replace <ul></ul> with a new <ul> tag with inline styles
                         windmodel = windmodel.replace(
                             "<ul></ul>",
-                            "<ul style=' padding: 22px; word-wrap: break-word; overflow-wrap: break-word;background-color: #070816;height: 100%'>"+ text +"</ul>"
+                            "<ul slot='seltext' style=' padding: 22px; word-wrap: break-word; overflow-wrap: break-word;background-color: #070816;height: 100%'>"+ text +"</ul>"
                         );
                         
                         // Set the outer HTML of newwind to the modified windmodel
@@ -95,10 +95,15 @@ $(document).on('mousedown mouseup mousemove', '*', function(e) {
             case 'mouseup':
                 switch(window.getSelection().getRangeAt(0).commonAncestorContainer.parentElement.slot){
                     case 'seltext':
-                  const seltext = document.createElement('p');
+                       if(null!== document.querySelector('.seltext')){break;}
+                  const seltext = document.createElement('div');
                   const rect = window.getSelection().getRangeAt(0).getBoundingClientRect();
-                  
-                  window.getSelection().toString();
+                  seltext.textContent = window.getSelection().toString();
+                  document.body.appendChild(seltext);
+                  seltext.classList.add('.seltext');
+                  seltext.slot = 'move';
+                  seltext.style.top = rect.top + 'px';
+                  seltext.style.top = rect.left + 'px';
                     break;
                        }
                        if(null!=windmove){windmove.state='fixe';windmove=null;}

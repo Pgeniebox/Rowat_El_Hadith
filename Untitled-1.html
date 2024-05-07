@@ -68,7 +68,7 @@ background-color:var(--headColor);
    let githubOwner='Pgeniebox';
    let githubRepo='Rowat_El_Hadith';
   /// let githubToken = localStorage.getItem('githubToken');
-  let githubToken = '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';
+  let githubToken = '';
    let githubPath=null;
    let githubFileName=null;
    function listPathsInRepository(wind) {
@@ -131,7 +131,7 @@ function displayPathList(paths, wind) {
     });
 }
 
-//listPathsInRepository(document.querySelector('ul'));
+listPathsInRepository(document.querySelector('ul'));
 
 
 
