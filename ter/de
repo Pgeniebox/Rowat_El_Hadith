@@ -19,3 +19,81 @@ break;
 <svg slot="close" class="tooltip svg" title="إغلاق النافذة" style="right: 20px;position:relative;"  width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Menu / Close_SM"> <path id="Vector" d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
 
 <svg slot="chat" class="svg" title= "محادثات"  width="20px" height="20px"  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M13.6288 20.4718L13.0867 21.3877C12.6035 22.204 11.3965 22.204 10.9133 21.3877L10.3712 20.4718C9.95073 19.7614 9.74049 19.4063 9.40279 19.2098C9.06509 19.0134 8.63992 19.0061 7.78958 18.9915C6.53422 18.9698 5.74689 18.8929 5.08658 18.6194C3.86144 18.1119 2.88807 17.1386 2.3806 15.9134C2 14.9946 2 13.8297 2 11.5V10.5C2 7.22657 2 5.58985 2.7368 4.38751C3.14908 3.71473 3.71473 3.14908 4.38751 2.7368C5.58985 2 7.22657 2 10.5 2H13.5C16.7734 2 18.4101 2 19.6125 2.7368C20.2853 3.14908 20.8509 3.71473 21.2632 4.38751C22 5.58985 22 7.22657 22 10.5V11.5C22 13.8297 22 14.9946 21.6194 15.9134C21.1119 17.1386 20.1386 18.1119 18.9134 18.6194C18.2531 18.8929 17.4658 18.9698 16.2104 18.9915C15.36 19.0061 14.9349 19.0134 14.5972 19.2098C14.2595 19.4062 14.0492 19.7614 13.6288 20.4718Z" fill="#ffffff"></path> </g></svg>
+
+element= document.documentElement;
+if (element.requestFullscreen) {
+  // Request full-screen mode
+  element.requestFullscreen();
+} else if (element.mozRequestFullScreen) { // Firefox
+  element.mozRequestFullScreen();
+} else if (element.webkitRequestFullscreen) { // Chrome, Safari and Opera
+  element.webkitRequestFullscreen();
+} else if (element.msRequestFullscreen) { // IE/Edge
+  element.msRequestFullscreen();
+}
+
+///shamela author search
+fetch("https://shamela.ws//ajax/author/?term=%D8%B9%D9%85%D8%B1&_type=query&q=%D8%B9%D9%85%D8%B1", {
+  "headers": {
+    "accept": "application/json, text/javascript, */*; q=0.01",
+    "accept-language": "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7",
+    "priority": "u=1, i",
+    "sec-ch-ua": "\"Chromium\";v=\"124\", \"Google Chrome\";v=\"124\", \"Not-A.Brand\";v=\"99\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-origin",
+    "x-requested-with": "XMLHttpRequest"
+  },
+  "referrer": "https://shamela.ws/author/3014",
+  "referrerPolicy": "strict-origin-when-cross-origin",
+  "body": null,
+  "method": "GET",
+  "mode": "cors",
+  "credentials": "include"
+});
+////////////////
+
+//////// dorar
+fetch("https://dorar.net/site/search?st=w&q=%D8%A7%D8%A8%D9%8A%20%D8%A7%D9%84%D9%84%D8%AD%D9%85", {
+  "headers": {
+    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+    "accept-language": "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7",
+    "cache-control": "max-age=0",
+    "priority": "u=0, i",
+    "sec-ch-ua": "\"Chromium\";v=\"124\", \"Google Chrome\";v=\"124\", \"Not-A.Brand\";v=\"99\"",
+    "sec-fetch-mode": "navigate",
+    "upgrade-insecure-requests": "1"
+  },
+  "referrer": "https://dorar.net/site/search?st=w&q=%D8%A7%D8%A8%D9%8A%20%D8%A7%D9%84%D9%84%D8%AD%D9%85",
+  "referrerPolicy": "no-referrer-when-downgrade",
+  "body": null,
+  "method": "GET",
+  "mode": "no-cors",
+  "credentials": "include"
+});
+
+///////hawramani
+
+axios.post('https://hadithtransmitters.hawramani.com/wp-admin/admin-ajax.php', {
+  action: 'get_cat_posts_html_for_letter',
+  starting_letter: '%D8%AA',
+  cat_ID: '5517',
+}, {
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7',
+    'Origin': 'https://hadithtransmitters.hawramani.com',
+    'Referer': 'https://hadithtransmitters.hawramani.com',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+    'X-Requested-With': 'XMLHttpRequest',
+    'Cookie': '_gid=GA1.2.1776865626.1715176400; wordpress_test_cookie=WP%20Cookie%20check; _ga_58V20ND6TV=GS1.1.1715176399.4.1.1715179067.0.0.0; _ga=GA1.2.607611931.1714566838; _ga_CCZBVNQY52=GS1.2.1715176400.3.1.1715179068.0.0.0',
+  },
+})
+.then(response => {
+  console.log(response.data);
+})
+.catch(error => {
+  console.error('There was a problem with the request:', error);
+});

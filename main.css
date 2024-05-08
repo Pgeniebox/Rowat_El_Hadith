@@ -12,7 +12,7 @@
     --pointer: #485663;
     --headColor: rgb(45, 51, 59);
     --shadow: rgba(0, 0, 0, 0.582) 2px 2px 5px 0px;
-    --user: #537fac;
+    --user: hsl(210, 100%, 63%);
   }
   .seltext{
     background-color: #636e7b;
@@ -135,7 +135,7 @@
   }
   
   li:hover {
-    background-color: rgb(54, 59, 63);
+    background-color: var(--headColor);
   }
   
   p {
@@ -192,7 +192,7 @@
   
   svg {
     padding: 10px;
-    border-radius: 50%;
+    border-radius: 25%;
     cursor: pointer;
   }
   
