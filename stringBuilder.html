@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Reader</title>
+</head>
+<body>
+    <input type="text" id="searchInput" placeholder="Type a character">
+    <button onclick="searchEntries()">Search</button>
+    <div id="result"></div>
+    <button id="downloadButton" onclick="downloadResult()" style="display: none;">Download Result</button>
+
+    <script>
+        let jsonn;
+      async function searchEntries() {
+
+    const fileList = await getFileList('/irwa/data/'); // Get list of files from base directory
+    let finalResult = {};
+    ///console.log(fileList);
+     ///return;
+    for (const fileName of fileList) {
+        try {
+            let nn =0;
+            const response = await fetch(`irwa/data/${fileName}.txt`);  
+            var data = await response.text();
+            const index = data.indexOf("<div class='Main'>");
+              data =  data.substring(index + "<div class='Main'>".length);
+                  data = data.replaceAll('&nbsp;','');
+                    data = data.replaceAll(/\n/g, '');
+                    
+                 ///data = data.replaceAll('"', '\"');
+               data=   data.replaceAll('<span class="PageNumber">','$ba');
+                
+                data=data.replaceAll(/<span class="PartName">(.*?)<\/span>/g, "").replaceAll(/<div class="footnote">(.*?)<\/div>/g, "").replaceAll('   ',' ').replaceAll('  ',' ');
+                      data = JSON.stringify(data);
+data=data.replaceAll('<p></p>','","').replaceAll(/<[^>]*>/g, " ").replaceAll('<',' ').replaceAll('>',' ')
+data = `{"0":[${data}]}`;
+            data = data.replaceAll('$ba', (match) => {
+    nn++;
+    return `"],"${nn}":["`;
+});
+
+                                       ///data =  JSON.parse(data);
+                    const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `${fileName}`;
+            document.body.appendChild(a);
+        } catch (error) {
+           console.log(error);
+        }
+    }
+    let mm = 0;
+let aa = document.querySelectorAll('a');
+
+function downloadNext() {
+    if (mm < aa.length) {
+        setTimeout(() => {
+            let a = aa[mm];
+            a.click();
+            mm++;
+            downloadNext();
+        }, 500);
+    }
+}
+
+downloadNext();
+   
+         
+}
+
+
+        async function getFileList(directory) {
+            const response = await fetch(directory);
+            const data = await response.text();
+            const parser = new DOMParser();
+            const htmlDocument = parser.parseFromString(data, "text/html");
+             ///console.log(htmlDocument)
+            const fileList = [];
+            const links = htmlDocument.querySelectorAll("a");
+            links.forEach(link => {
+                let fileName = link.getAttribute("href");
+                if (fileName.endsWith(".txt")) {
+                    // Remove "\\base\\" prefix and ".txt" extension
+                    fileName = fileName.replace(/^.*[\\\/]/, '').replace('.txt','');
+                    fileList.push(fileName);
+                }
+            });
+
+            return fileList;
+        }
+       /// let data;
+async function test(){
+            let nn =0;
+            const response = await fetch('/irwa/data/تلخيص أحكام الجنائز.txt');
+            var data = await response.text();
+            const index = data.indexOf("<div class='Main'>")
+              data =  data.substring(index + "<div class='Main'>".length);
+                data = data.replaceAll('<span class="PageNumber">', (match) => {
+    nn++;
+    return `"},"${nn}":{"`;
+});
+                data=data.replaceAll(/<span class="PartName">(.*?)<\/span>/g, "").replaceAll(/<div class="footnote">(.*?)<\/div>/g, "").replaceAll('<p></p>','[bs] ').replaceAll(/<[^>]*>/g, " ").replaceAll('<',' ').replaceAll('>',' ').replaceAll('   ',' ').replaceAll('  ',' ');
+                    data = `{"0":{"${data}"}}`;
+                    const blob = new Blob([data]);
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = 'test.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+}
+        
+async function fixFile(){
+    const fileList = await getFileList('/albany/'); // Get list of files from base directory
+    let finalResult = {};
+    ///console.log(fileList);
+     ///return;
+    for (const fileName of fileList) {
+        try {
+            
+            const response = await fetch(`albany/${fileName}.txt`);  
+            var data = await response.text();
+            data = data.replaceAll('"},"',)
+                    const blob = new Blob([data]);
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `${fileName}`;
+            document.body.appendChild(a);
+        } catch (error) {
+           
+        }
+    }
+    let nn = 0;
+let aa = document.querySelectorAll('a');
+
+function downloadNext() {
+    if (nn < aa.length) {
+        setTimeout(() => {
+            let a = aa[nn];
+            a.click();
+            nn++;
+            downloadNext();
+        }, 1500);
+    }
+}
+
+downloadNext();
+   
+}
+    </script>
+</body>
+</html>

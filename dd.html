@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Reader</title>
+</head>
+<body>
+    <input type="text" id="searchInput" placeholder="Type a character">
+    <button onclick="searchEntries()">Search</button>
+    <div id="result"></div>
+    <button id="downloadButton" onclick="downloadResult()" style="display: block;">Download Result</button>
+
+    <script>
+        async function searchEntries() {
+            const character = document.getElementById("searchInput").value;
+            const resultDiv = document.getElementById("result");
+            const downloadButton = document.getElementById("downloadButton");
+            resultDiv.innerHTML = ""; // Clear previous results
+
+            const fileList = await getFileList("/base/"); // Get list of files from base directory
+            let finalResult = {};
+
+            for (const fileName of fileList) {
+                try {
+                    const response = await fetch(`/base/${fileName}.txt`);
+                    const data = await response.json(); // Parse response as JSON
+                    const entries = data[character]; // Assuming the JSON structure is already in the desired format
+                      ///console.log(fileName);
+                    if (entries) {
+                        for (const [key, value] of Object.entries(entries)) {
+                            if (!finalResult[key]) {
+                        finalResult[key] = [{ ...value, source: fileName }];
+                    } else {
+                
+                        finalResult[key].push({ ...value, source: fileName, });
+                    }
+                                ///finalResult[key] = value;
+                           
+                                ///finalResult[key].source = `${fileName}`;
+                            
+                        }
+                    }
+                } catch (error) {
+                    console.error(`Error reading file ${fileName}:`, error);
+                    // Stop the process immediately
+                    resultDiv.innerText = `Error reading file ${fileName}: ${error.message}`;
+                    return;
+                }
+            }
+
+        console.log([character]);
+        const sortedResult = {};
+    Object.keys(finalResult).sort((a, b) => a.localeCompare(b, "ar")).forEach(key => {
+        sortedResult[key] = finalResult[key];
+    });
+            const result = JSON.stringify({ [character]: sortedResult }, null, 2);
+              const blob = new Blob([result], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `${character}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        async function getFileList(directory) {
+            const response = await fetch(directory);
+            const data = await response.text();
+            const parser = new DOMParser();
+            const htmlDocument = parser.parseFromString(data, "text/html");
+
+            const fileList = [];
+            const links = htmlDocument.querySelectorAll("a");
+            links.forEach(link => {
+                let fileName = link.getAttribute("href");
+                if (fileName.endsWith(".txt")) {
+                    // Remove "\\base\\" prefix and ".txt" extension
+                    fileName = fileName.replace(/^.*[\\\/]/, '').replace(".txt", "");
+                    fileList.push(fileName);
+                }
+            });
+
+            return fileList;
+        }
+
+   
+    </script>
+</body>
+</html>

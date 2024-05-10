@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Reader</title>
+</head>
+<body>
+    <input type="text" id="searchInput" placeholder="Type a character">
+    <button onclick="searchEntries(0)">Search</button>
+    <div id="result"></div>
+    <button id="downloadButton" onclick="download()" style="display: block;">Download Result</button>
+
+    <script>
+        
+      async function searchEntries(e) {
+    const fileList = await getFileList(`${e}/`); 
+   if(fileList.length==0){console.log('finish!'); return;}
+    let finalResult = [];
+    for (const fileName of fileList) {
+        
+            const response = await fetch(`${e}/${fileName}.htm`);
+            var data = await response.text();
+            data = data.replace("</body>","<script>let value=localStorage.getItem('key');if(value){+value++;}else{value='1';}localStorage.setItem('key',value);const blob=new Blob([document.querySelector('.Main').outerHTML],{type:'text/plain'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=document.querySelector('title').textContent;a.download=document.querySelector('title').textContent;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);setTimeout(()=>{location.href=value+'.htm'},1000);" + "<\/script></body>")
+                const blob = new Blob([data], { type: "text/html" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            document.body.appendChild(a);
+           
+    }
+            e++;
+            console.log(e);
+           setTimeout(() => {
+            searchEntries(e); 
+           }, 500);
+}
+let fnn=0;
+function download(){
+    let aa = document.querySelectorAll('a');
+          aa.forEach(a=>{
+            setTimeout(() => {
+                a.download = `${fnn}`;
+                fnn++;
+                a.click();
+            ///document.body.removeChild(a);
+           }, 2000);
+          
+          });
+}
+        async function getFileList(directory) {
+            const response = await fetch(directory);
+            const data = await response.text();
+            const parser = new DOMParser();
+            const htmlDocument = parser.parseFromString(data, "text/html");
+             ///console.log(htmlDocument);
+            const fileList = [];
+            const links = htmlDocument.querySelectorAll("a");
+            links.forEach(link => {
+                let fileName = link.getAttribute("href");
+                if (fileName.endsWith(".htm")) {
+                    // Remove "\\base\\" prefix and ".txt" extension
+                    fileName = fileName.replace(/^.*[\\\/]/, '').replace('.htm','');
+                    fileList.push(fileName);
+                }
+            });
+            //console.log(fileList);
+
+            return fileList;
+        }
+  
+        
+    </script>
+    </body>
+</html>
