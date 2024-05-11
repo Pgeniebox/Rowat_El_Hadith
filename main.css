@@ -23,9 +23,8 @@
   border: 1px solid var(--border-color);
   }
   #container {
+    background-color: rgb(34, 39, 46);
     direction: var(--main-direction);
-    top: 10%;
-    left: 20%;
     width: 60%;
     height: 80vh;
     min-height: 300px;
@@ -36,6 +35,7 @@
     position: fixed;
     overflow: hidden;
     gap: 10%;
+    
   }
   
   .head {

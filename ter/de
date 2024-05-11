@@ -97,3 +97,16 @@ axios.post('https://hadithtransmitters.hawramani.com/wp-admin/admin-ajax.php', {
 .catch(error => {
   console.error('There was a problem with the request:', error);
 });
+
+/////////////
+var data = {
+  'action' : 'get_cat_posts_html_for_letter',
+  'starting_letter' : 'ب',
+  'cat_ID' : '0',
+                  'mode':'no-core'
+}
+
+var ajaxurl = '';
+
+jQuery.post(ajaxurl, data, function(response) {});
+/////////////////////

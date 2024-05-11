@@ -9,7 +9,9 @@
      <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="plugins/jquery.nav.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-     <title>كتيب</title>
+    <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
+    <title>كتيب</title>
      <link rel="icon" href="img/calligraphy-education-feather-svgrepo-com (1).png" type="image/png">
 <style>
 html,body {
@@ -31,6 +33,9 @@ html,body {
 text-align: -webkit-center;
 direction: rtl;
 overflow: hidden;
+align-items: center;
+justify-items: center;
+justify-content: center;
 }
 * {
     transform: translateZ(0);
@@ -84,12 +89,9 @@ overflow: hidden;
         <div id="customDialog" class="custom-dialog">
     <p id="customMessage" style="color: var(--main-color);">This is a notification message.</p>
 </div>
-<div class="task-bars-container" style="position: fixed; bottom: 0; width: 100%;">
-    <div class="head" style="pointer-events:fill;border: none;margin: 0%;width: fit-content;;justify-content: center;height: fit-content; position: relative; bottom: 0; z-index: 9999999;background-color: transparent;">
+    
+    <div class="head" tabindex="0" id="taskBar" style="width: 50%; pointer-events: none; padding-right: 20px; position: fixed;bottom: 1.5%; border: 1px solid var(--border-color); gap: 10px;border-radius: 6px;"></div>
 
-    </div>
-    <div class="head" tabindex="0" id="taskBar" style="width: 100%; pointer-events: none; padding-right: 20px; position: relative; bottom: 0; border-top: 1px solid var(--border-color); gap: 10px;"></div>
-</div>
 
 <div class="option"></div>
 <custom-element>
@@ -114,16 +116,7 @@ overflow: hidden;
 /// listPathsInRepository(document.querySelector('ul'));
 $(this).clearQueue();
 
-var data = {
-							  'action' : 'get_cat_posts_html_for_letter',
-							  'starting_letter' : 'ب',
-								'cat_ID' : '0',
-                                'mode':'no-core'
-							}
-							
-		var ajaxurl = 'http://hadithtransmitters.hawramani.com/wp-admin/admin-ajax.php';
 
-			jQuery.post(ajaxurl, data, function(response) {});
 
 </script>
 
