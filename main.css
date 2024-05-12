@@ -4,14 +4,14 @@
     --main-direction: rtl;
     --main-color: rgb(213, 220, 228);
     --secondary-color: #444;
-    --border-color: #57616d;
+    --border-color: #000000;
     --background-color: #435266;
     --input-background: #444;
     --button-background: transparent;
     --button-hover-background: #0e3069;
     --pointer: #485663;
     --headColor: rgb(45, 51, 59);
-    --shadow: rgba(0, 0, 0, 0.582) 2px 2px 5px 0px;
+    --shadow: #0000005c 2px 2px 3px 0px;
     --user: hsl(210, 100%, 63%);
   }
   .seltext{
@@ -211,3 +211,6 @@
     width: -webkit-fill-available;
   }
   
+.sel{
+    filter: contrast(90%);
+  }

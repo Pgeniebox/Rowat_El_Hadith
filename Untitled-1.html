@@ -20,7 +20,7 @@ html,body {
     -ms-user-select: none; 
     -webkit-user-select: none;
     position: relative;
-    background-color: rgb(34, 39, 46);
+    background-color: rgb(41, 48, 58);
     color: var(--main-color);
     font-family: Arial, sans-serif;
     margin: 0;
@@ -76,8 +76,9 @@ justify-content: center;
 </head>
 <body>    
     <div name="القاعدة" id="container" style=" flex-grow: 1;">
-        <div slot="move" class="head">
+        <div slot="move" class="head wd">
             <svg slot="close" class="close svg" title="إغلاق النافذة" style="right: 15px;position:relative;padding:5px;"  width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Menu / Close_SM"> <path id="Vector" d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+<svg slot="fs" class="svg" title="تكبير النافذة" style="right: 20px;position:relative;padding:6px;" width="20px" height="20px" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18 20.75H12C11.8011 20.75 11.6103 20.671 11.4697 20.5303C11.329 20.3897 11.25 20.1989 11.25 20C11.25 19.8011 11.329 19.6103 11.4697 19.4697C11.6103 19.329 11.8011 19.25 12 19.25H18C18.3315 19.25 18.6495 19.1183 18.8839 18.8839C19.1183 18.6495 19.25 18.3315 19.25 18V6C19.25 5.66848 19.1183 5.35054 18.8839 5.11612C18.6495 4.8817 18.3315 4.75 18 4.75H6C5.66848 4.75 5.35054 4.8817 5.11612 5.11612C4.8817 5.35054 4.75 5.66848 4.75 6V12C4.75 12.1989 4.67098 12.3897 4.53033 12.5303C4.38968 12.671 4.19891 12.75 4 12.75C3.80109 12.75 3.61032 12.671 3.46967 12.5303C3.32902 12.3897 3.25 12.1989 3.25 12V6C3.25 5.27065 3.53973 4.57118 4.05546 4.05546C4.57118 3.53973 5.27065 3.25 6 3.25H18C18.7293 3.25 19.4288 3.53973 19.9445 4.05546C20.4603 4.57118 20.75 5.27065 20.75 6V18C20.75 18.7293 20.4603 19.4288 19.9445 19.9445C19.4288 20.4603 18.7293 20.75 18 20.75Z" fill="#ffffff"></path>   <path d="M8 20.75H5C4.53668 20.7474 4.09309 20.5622 3.76546 20.2345C3.43784 19.9069 3.25263 19.4633 3.25 19V16C3.25263 15.5367 3.43784 15.0931 3.76546 14.7655C4.09309 14.4378 4.53668 14.2526 5 14.25H8C8.46332 14.2526 8.90691 14.4378 9.23454 14.7655C9.56216 15.0931 9.74738 15.5367 9.75 16V19C9.74738 19.4633 9.56216 19.9069 9.23454 20.2345C8.90691 20.5622 8.46332 20.7474 8 20.75ZM5 15.75C4.9337 15.75 4.87011 15.7763 4.82322 15.8232C4.77634 15.8701 4.75 15.9337 4.75 16V19C4.75 19.0663 4.77634 19.1299 4.82322 19.1768C4.87011 19.2237 4.9337 19.25 5 19.25H8C8.0663 19.25 8.12989 19.2237 8.17678 19.1768C8.22366 19.1299 8.25 19.0663 8.25 19V16C8.25 15.9337 8.22366 15.8701 8.17678 15.8232C8.12989 15.7763 8.0663 15.75 8 15.75H5Z" fill="#fff"></path> </g></svg>
             <svg slot="min" class="svg" title="إخفاء النافذة" style="right: 20px;position:relative;"  fill="white" width="10px" height="10px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M464 352H48c-26.5 0-48 21.5-48 48v32c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48v-32c0-26.5-21.5-48-48-48z"/></svg>
             <p style="cursor: none;pointer-events: none;left: 40px;position: absolute;font-weight: 600;user-select: none;-moz-user-select: none; -ms-user-select: none; -webkit-user-select: none;">القاعدة</p>
         </div>
@@ -90,13 +91,9 @@ justify-content: center;
     <p id="customMessage" style="color: var(--main-color);">This is a notification message.</p>
 </div>
     
-    <div class="head" tabindex="0" id="taskBar" style="width: 50%; pointer-events: none; padding-right: 20px; position: fixed;bottom: 1.5%; border: 1px solid var(--border-color); gap: 10px;border-radius: 6px;"></div>
-
-
+<div class="head" tabindex="0" id="taskBar" style="width: 50%;padding-right: 20px;position: fixed;bottom: 0;gap: 10px;border-radius: 12px 12px 0px 0px;border-bottom: none;height: 32px;box-shadow: #0000005c 0 0 6px;"></div>
 <div class="option"></div>
-<custom-element>
-    <script></script>
-</custom-element>
+
 </body>
 <script src="windowManager.js"></script>
 <script src="gitfetch.js"></script>

@@ -1,3 +1,4 @@
+'use strict';
 const $toolTip = $('.option');
 $toolTip.hide();
 let isFullscreen = false;
@@ -5,14 +6,12 @@ let activeWindow = null;
 let offsetX, offsetY, initialX, initialY, initialWidth, initialHeight;
 
 $(document)
-  .on('mousemove', handleMouseMove)
-  .on('mouseup', handleMouseUp)
-  .on('mouseout', handleMouseOut)
-  .on('mousedown', handleMouseDown);
-
+  .on('mousemove',':not(body,html,#taskBar)', handleMouseMove)
+  .on('mouseup',':not(body,html,#taskBar)', handleMouseUp)
+  .on('mouseout',':not(body,html,#taskBar)', handleMouseOut)
+  .on('mousedown',':not(body,html,#taskBar)', handleMouseDown);
 $('svg').on('click', handleSvgClick);
-$('.head').on('dblclick', handleHeadDoubleClick);
-
+$('.head.wd').on('dblclick', requestFullscreen);
 function handleMouseMove(e) {
   if (activeWindow) {
     if (activeWindow.state === 'move') {
@@ -27,7 +26,6 @@ function handleMouseMove(e) {
     }
   }
 }
-
 function moveWindow(e) {
   activeWindow.style.boxShadow = 'var(--shadow)';
   activeWindow.style.left = e.clientX - offsetX + 'px';
@@ -58,6 +56,7 @@ function showToolTip(e, $target) {
 }
 
 function handleMouseDown(e) {
+  e.target.style.filter = 'contrast(90%)';
   const $target = $(e.target);
   activeWindow = $target.parent()[0];
   activeWindow.state = $target.attr('slot');
@@ -72,9 +71,10 @@ function handleMouseDown(e) {
   }
 }
 
-function handleMouseUp() {
+function handleMouseUp(e) {
+  e.target.style.filter = 'none';
   if (activeWindow) {
-    activeWindow.style.boxShadow = '';
+   $('#container')[0].style.boxShadow = '';
     activeWindow = null;
   }
 }
@@ -97,6 +97,9 @@ function handleSvgClick() {
       case 'close':
         closeWindow(this);
         break;
+        case 'fs':
+          requestFullscreen();
+        break;
     }
   }
 }
@@ -112,16 +115,19 @@ function minimizeWindow(svgElement) {
 function createTaskBarElement(taskName) {
   const $newTask = $('<p>', {
     css: {
-      border: '1px solid var(--border-color)',
+      border: 'none',
+      boxShadow: 'var(--shadow)',
       borderRadius: '5px',
       padding: '5px',
       pointerEvents: 'all',
       cursor: 'pointer',
       zIndex: '1',
       fontWeight: '600',
-      position: 'relative'
+      position: 'relative',
+      backgroundColor: 'var(--pointer)'
     },
     slot: 'open',
+    class: 'newT',
     text: taskName
   }).click(function() {
     $(`[name="${taskName}"]`).show();
@@ -135,14 +141,19 @@ function closeWindow(svgElement) {
   $(svgElement).parent().parent().remove();
 }
 
-function handleHeadDoubleClick() {
+function requestFullscreen() {
   if (!isFullscreen) {
+    $('[slot="fs"]')[0].style.rotate = '180deg';
+    $('[slot="fs"]')[0].title = "تصغير النافذة";
+    $('[slot="fs"]')[0].parentElement.parentElement.requestFullscreen();
     isFullscreen = true;
-    $(this).parent()[0].requestFullscreen();
   } else {
+    $('[slot="fs"]')[0].style.rotate = '0deg';
+    $('[slot="fs"]')[0].title = "تكبير النافذة";
     isFullscreen = false;
     document.exitFullscreen();
   }
+  return $('[slot="fs"]')[0] = null;
 }
 function handleMouseOut() {
     if ($toolTip.is(':visible')) {
