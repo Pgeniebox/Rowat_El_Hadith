@@ -117,7 +117,7 @@ function createTaskBarElement(taskName) {
     css: {
       border: 'none',
       boxShadow: 'var(--shadow)',
-      borderRadius: '5px',
+      borderRadius: '8px',
       padding: '5px',
       pointerEvents: 'all',
       cursor: 'pointer',

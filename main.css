@@ -22,7 +22,7 @@
 }
 
 #container {
-  background-color: rgb(34, 39, 46);
+  background-color: rgba(34, 39, 46, 0.521);
   direction: var(--main-direction);
   width: 60%;
   height: 80vh;
