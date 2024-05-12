@@ -1,216 +1,237 @@
-
-
 :root {
-    --main-direction: rtl;
-    --main-color: rgb(213, 220, 228);
-    --secondary-color: #444;
-    --border-color: #000000;
-    --background-color: #435266;
-    --input-background: #444;
-    --button-background: transparent;
-    --button-hover-background: #0e3069;
-    --pointer: #485663;
-    --headColor: rgb(45, 51, 59);
-    --shadow: #0000005c 2px 2px 3px 0px;
-    --user: hsl(210, 100%, 63%);
-  }
-  .seltext{
-    background-color: #636e7b;
+  --main-direction: rtl;
+  --main-color: rgb(213, 220, 228);
+  --secondary-color: #444;
+  --border-color: #000;
+  --background-color: #435266;
+  --input-background: #444;
+  --button-background: transparent;
+  --button-hover-background: #0e3069;
+  --pointer: #536074cc;
+  --headColor: rgb(45, 51, 59);
+  --shadow: #0005c 2px 2px 3px 0;
+}
+
+.seltext {
+  background-color: #636e7b;
   position: fixed;
   width: 300px;
   height: 300px;
   border-radius: 6px;
   border: 1px solid var(--border-color);
+}
+
+#container {
+  background-color: rgb(34, 39, 46);
+  direction: var(--main-direction);
+  width: 60%;
+  height: 80vh;
+  min-height: 300px;
+  min-width: 300px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  position: fixed;
+  overflow: hidden;
+  gap: 10%;
+}
+
+.head {
+  position: relative;
+  width: 100%;
+  padding: 8px;
+  background-color: var(--headColor);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  direction: var(--main-direction);
+  gap: 10px;
+}
+
+h2,
+label,
+input[type="text"],
+select,
+button,
+pre,
+#jsonDisplay,
+#window,
+.title,
+ul,
+li,
+p,
+.newT:hover,
+.defaultTooltip,
+.custom-dialog,
+svg,
+.svg:hover,
+#credit {
+  direction: var(--main-direction);
+}
+
+h2,
+label,
+input[type="text"],
+select {
+  background-color: var(--input-background);
+  color: var(--main-color);
+  border: 1px solid var(--border-color);
+  padding: 8px;
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+button {
+  background-color: var(--button-background);
+  color: var(--main-color);
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+button:hover {
+  background-color: var(--button-hover-background);
+}
+
+pre {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  white-space: pre-wrap;
+  margin-top: 20px;
+  font-size: 14px;
+  overflow-x: auto;
+}
+
+#jsonDisplay {
+  text-align: left;
+  padding: 2%;
+  background-color: #1d1d1d;
+  color: #fff;
+  max-height: 250px;
+  scrollbar-width: none;
+}
+
+#window {
+  background-color: var(--background-color);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  height: 70%;
+  width: 70%;
+}
+
+.title {
+  color: var(--main-color);
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  min-height: auto;
+  max-height: -webkit-fill-available;
+  scrollbar-width: none;
+  overflow: auto;
+  position: relative;
+}
+
+li {
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+  border-bottom: 1px solid var(--border-color);
+  align-content: center;
+}
+
+li:hover {
+  background-color: var(--headColor);
+}
+
+p {
+  color: var(--main-color);
+  margin: 0;
+  pointer-events: none;
+  font-size: large;
+  font-family: 'Courier New', Courier, monospace;
+  align-content: center;
+}
+
+.newT,
+.sel {
+  background-color: var(--headColor);
+  border: 1px solid var(--border-color);
+}
+
+.newT:hover,
+.sel:hover {
+  background-color: var(--pointer);
+  filter: contrast(86%);
+}
+
+.defaultTooltip {
+  background-color: #636e7b;
+  color: #fff;
+  border: none;
+  width: fit-content;
+  box-shadow: none;
+  stroke: none;
+}
+
+.custom-dialog {
+  position: fixed;
+  bottom: -500px;
+  background: #636e7b;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  display: none;
+  top: auto;
+  left: auto;
+}
+
+.custom-dialog.show {
+  display: block;
+  animation: slideIn 0.5s forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    bottom: -500px;
   }
-  #container {
-    background-color: rgb(34, 39, 46);
-    direction: var(--main-direction);
-    width: 60%;
-    height: 80vh;
-    min-height: 300px;
-    min-width: 300px;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
-    text-align: center;
-    position: fixed;
-    overflow: hidden;
-    gap: 10%;
-    
+  100% {
+    bottom: 20px;
   }
-  
-  .head {
-    position: relative;
-    width: 100%;
-    padding: 8px;    
-    background-color: var(--headColor);
-    border-bottom: 1px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    direction: var(--main-direction);
-    gap: 10px;
-  }
-  
-  h2, label, input[type="text"], select, button, pre, #jsonDisplay, #window, .title, ul, li, p, .newT:hover, .defaultTooltip, .custom-dialog, svg, .svg:hover, #credit {
-    direction: var(--main-direction);
-  }
-  
-  h2, label, input[type="text"], select {
-    background-color: var(--input-background);
-    color: var(--main-color);
-    border: 1px solid var(--border-color);
-    padding: 8px;
-    margin-bottom: 10px;
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 5px;
-  }
-  
-  button {
-    background-color: var(--button-background);
-    color: var(--main-color);
-    padding: 10px 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 3px;
-  }
-  
-  button:hover {
-    background-color: var(--button-hover-background);
-  }
-  
-  pre {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    white-space: pre-wrap;
-    margin-top: 20px;
-    font-size: 14px;
-    overflow-x: auto;
-  }
-  
-  #jsonDisplay {
-    text-align: left;
-    padding: 2%;
-    background-color: #1d1d1d;
-    color: #fff;
-    max-height: 250px;
-    scrollbar-width: none;
-  }
-  
-  #window {
-    background-color: var(--background-color);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 20px;
-    height: 70%;
-    width: 70%;
-  }
-  
-  .title {
-    color: var(--main-color);
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    text-align: left;
-    min-height: auto;
-    max-height: -webkit-fill-available;
-    scrollbar-width: none;
-    overflow: auto;
-    position: relative;
-  }
-  
-  li {
-    display: flex;
-    gap: 20px;
-    padding: 10px;
-    border-bottom: 1px solid var(--border-color);
-    align-content: center;
-  }
-  
-  li:hover {
-    background-color: var(--headColor);
-  }
-  
-  p {
-    color: var(--main-color);
-    margin: 0;
-    pointer-events: none;
-    font-size: large;
-    font-family: 'Courier New', Courier, monospace;
-    align-content: center;
-  }
-  .newT{
-    background-color: var(--headColor);
-    border: 1px solid var(--border-color);
-  }
-  .newT:hover {
-    background-color: var(--pointer);
-  }
-  
-  .defaultTooltip {
-    background-color: #636e7b;
-    color: #fff;
-    border: none;
-    width: fit-content;
-    box-shadow: none;
-    stroke: none;
-  }
-  
-  .custom-dialog {
-    position: fixed;
-    bottom: -500px; 
-    background: #636e7b;
-    padding: 20px;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    box-shadow: var(--shadow);
-    display: none; 
-    top: auto;
-    left: auto;
-  }
-  
-  .custom-dialog.show {
-    display: block;
-    animation: slideIn 0.5s forwards;
-  }
-  
-  @keyframes slideIn {
-    0% {
-      bottom: -500px;
-    }
-    100% {
-      bottom: 20px;
-    }
-  }
-  
-  svg {
-    padding: 10px;
-    border-radius: 25%;
-    cursor: pointer;
-  }
-  
-  .svg:hover {
-    background-color: var(--pointer);
-  }
-  .close:hover{
-    background-color:indianred;
-  }
-  #credit {
-    color: #aaa;
-    margin-top: 20px;
-    position: absolute;
-    bottom: 5%;
-    justify-content: center;
-    width: -webkit-fill-available;
-  }
-  
-.sel{
-    filter: contrast(90%);
-  }
+}
+
+svg {
+  padding: 10px;
+  border-radius: 25%;
+  cursor: pointer;
+}
+
+.svg:hover {
+  background-color: var(--pointer);
+}
+
+.close:hover {
+  background-color: indianred;
+}
+
+#credit {
+  color: #aaa;
+  margin-top: 20px;
+  position: absolute;
+  bottom: 5%;
+  justify-content: center;
+  width: -webkit-fill-available;
+}

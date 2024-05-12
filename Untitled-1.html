@@ -37,7 +37,7 @@ align-items: center;
 justify-items: center;
 justify-content: center;
 }
-* {
+* :not(body,html) {
     transform: translateZ(0);
     text-rendering: optimizeLegibility;
     font-family:'Courier New', Courier, monospace;
@@ -58,7 +58,7 @@ justify-content: center;
     position: fixed;
     border-radius: 6px;
     box-shadow: var(--shadow);
-    background-color: #425568;
+    background-color: #3b4b63;
     padding: 10px;
     overflow: hidden;
     font-size: calc(1vw + 1vh);
