@@ -110,3 +110,35 @@ var ajaxurl = '';
 
 jQuery.post(ajaxurl, data, function(response) {});
 /////////////////////
+
+var data = document.body.outerHTML;
+
+let newfile = false;
+const aut = document.querySelector('.footnote').textContent.replace('(','').replace(')','');
+
+if(localStorage.getItem('aut')!==aut){newfile=true; }
+//3
+let value=localStorage.getItem('b');
+if(value>0){value++;}else{value=1;}
+localStorage.setItem('b',value);
+//4
+function getpart(){
+    const d = document.querySelector('title').textContent;
+function parseAr(persianString) {
+    let number = 0;
+    const persianDigits = ['٠', '۱', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+    for (let i = 0; i < persianString.length; i++) {
+        const digit = persianDigits.indexOf(persianString[i]);
+        number = number * 10 + digit;
+    }
+    return number;
+}
+let persianNumber = d.split(' ج').at(1).split(' ').at('1');
+return parseAr(persianNumber);
+}
+if(document.querySelector('title').textContent.includes(' ج')){const bp = getpart();}
+///data = JSON.stringify(data)
+data=data.replaceAll('<span class="title">','t').replaceAll('<div class="footnote">','fn').replaceAll(/\n/g,'').replaceAll('<hr>','>l').replaceAll('/<[hr]*>/g','>bs').replaceAll(/<span class="PartName">(.*?)<\/span>/g, "").replaceAll('&zwnj;', '').replaceAll('<span class="PageNumber">','bs').replaceAll('&nbsp;','').replaceAll('<p></p>','bs').replaceAll(/<[^>]*>/g, "").replaceAll('<',' ').replaceAll('>',' ').replaceAll('   ',' ').replaceAll('  ',' ').replaceAll('bs ','bs').replaceAll('t ','t').replaceAll('l ','l');
+///data = JSON.stringify(data)
+
+data = data.split('bs')
